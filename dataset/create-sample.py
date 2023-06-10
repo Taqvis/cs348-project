@@ -9,7 +9,7 @@ random.seed("cs348")
 prodDf = pd.read_csv("./dataset-prod.csv", index_col=0)
 
 # generate the indexes to select
-sampleIndexes = random.sample(range(len(prodDf.index)), 10)
+sampleIndexes = random.sample(range(len(prodDf.index)), 100)
 
 # get the rows at the indexes
 sampleDf = prodDf.iloc[sampleIndexes]
