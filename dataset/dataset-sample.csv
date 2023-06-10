@@ -1,0 +1,11 @@
+,track_id,artists,album_name,track_name,popularity,duration_ms,explicit,danceability,energy,key,loudness,mode,speechiness,acousticness,instrumentalness,liveness,valence,tempo,time_signature,track_genre
+1769,6AYmNlxHIzmAW7mYeaqpNo,Metá Metá,M M 3,Ossanyn,18,283308,False,0.454,0.636,5,-7.768,0,0.0314,0.271,0.824,0.108,0.455,138.448,4,afrobeat
+22821,2R1n2QizkN1QygvkqyHhM5,Old Man's Child,In Defiance of Existence,The Soul Receiver,23,271493,False,0.414,0.922,2,-5.348,1,0.0377,4.17e-06,0.802,0.125,0.277,139.93,4,death-metal
+108761,20MV2Avs2v1liJjlUXoVnB,Quadro Nuevo,MARE,Sambadi Didi,17,356719,False,0.525,0.292,10,-14.041,1,0.0675,0.938,0.672,0.0845,0.412,170.983,4,tango
+30312,02shCNmb6IvgB5jLqKjtkK,Vicetone;Cozi Zuehlsdorff,Nevada,Nevada,71,208561,False,0.605,0.783,3,-4.271,1,0.0324,0.299,0.000175,0.133,0.105,124.015,4,edm
+26935,2yqVwgPoCzIwbRjrVmfFWW,The Sleep Diaries,Lullaby Versions of Disney Classics,"Remember Me (from ""Coco"")",18,175000,False,0.414,0.0153,2,-26.892,1,0.0428,0.981,0.933,0.0857,0.066,77.399,4,disney
+51890,39MVngfrWBFY7muXGvSBqb,Lizzo;Purple Disco Machine,Brandneu Dance,About Damn Time - Purple Disco Machine Remix,3,218476,True,0.8,0.771,10,-6.638,0,0.123,0.0531,0.0,0.229,0.886,118.991,4,hip-hop
+83931,07F3l9pvdeysyHwIjNHowQ,JODA;Robyn Sherwell;Jono Grant,Group Therapy 500 Live From Los Angeles - Deep Set,Closer - Jono Grant's Deep Mix,36,233966,False,0.619,0.723,2,-9.814,0,0.0351,0.0155,0.729,0.255,0.135,123.997,4,progressive-house
+62242,0HUQDPIFCHff0OQI2ZB9Bc,Jamie Cullum,Weihnachten Musik,It's Christmas,0,194706,False,0.598,0.447,8,-7.932,1,0.0404,0.224,0.0,0.0704,0.365,123.855,4,j-pop
+36327,5KXE69qhSBH9ksigiYFSG2,Lujipeka,Montagnes Russes,Bordel,37,192533,True,0.581,0.565,0,-7.599,0,0.0352,0.147,0.0,0.12,0.318,176.963,3,french
+119,3PG6V5yuFfo4APiovOQoRv,Ray LaMontagne;Sierra Ferrell,I Was Born To Love You,I Was Born To Love You,67,265843,False,0.65,0.271,9,-11.081,1,0.0314,0.794,6.9e-05,0.196,0.21,78.036,4,acoustic
