@@ -1,26 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/spotify-icon.png'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/spotify-icon.png";
+import "./App.css";
+
+// Import your components
+import RenamePlaylistButton from "./components/functionalButtons/RenamePlaylist";
+import SearchSongButton from "./components/functionalButtons/SearchSong";
+import DeleteSongButton from "./components/functionalButtons/DeleteSong";
+import CreatePlaylistButton from "./components/functionalButtons/CreatePlaylist";
+import AddSongToPlaylistButton from "./components/functionalButtons/AddSong";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
       <div>
-        <a href="https://open.spotify.com/" target="_blank">
+        <a href="https://open.spotify.com/" target="_blank" rel="noreferrer">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
       <h1>CS348 Project</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+      {/* display components side by side */}
+      <div className="container">
+        <div className="card">
+          <RenamePlaylistButton />
+        </div>
+        <div className="card">
+          <SearchSongButton />
+        </div>
+      </div>
+      <div className="container">
+        <DeleteSongButton />
+        <CreatePlaylistButton />
+        <AddSongToPlaylistButton />
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
