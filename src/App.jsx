@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import { useState } from "react";
 import axios from "axios";
 import spotifyLogo from "./assets/favicon.png";
+=======
+import { useState } from 'react'
+import reactLogo from './assets/spotify-icon.png'
+import './App.css'
+>>>>>>> 9782225 (merge)
 
 export default function App() {
 
