@@ -9,7 +9,9 @@ import DeleteSongButton from "./components/functionalButtons/DeleteSong";
 import CreatePlaylistButton from "./components/functionalButtons/CreatePlaylist";
 import AddSongToPlaylistButton from "./components/functionalButtons/AddSong";
 
-function App() {
+import SongCard from "./components/SongCard";
+
+function App() { 
   return (
     <>
       <div>
@@ -18,6 +20,9 @@ function App() {
         </a>
       </div>
       <h1>CS348 Project</h1>
+
+      <SongCard song={{ title: "Example Title", artist: "Example Name" }} />
+
       {/* display components side by side */}
       <div className="container">
         <div className="card">
