@@ -24,15 +24,15 @@ function App() {
       <SongCard song={{ title: "Example Title", artist: "Example Name" }} />
 
       {/* display components side by side */}
-      <div className="container">
-        <div className="card">
+      <div class="space-x-4">
+        <div class="inline-block">
           <RenamePlaylistButton />
         </div>
-        <div className="card">
+        <div class="inline-block">
           <SearchSongButton />
         </div>
       </div>
-      <div className="container">
+      <div class="inline-block">
         <DeleteSongButton />
         <CreatePlaylistButton />
         <AddSongToPlaylistButton />
