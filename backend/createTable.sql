@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS Tracks (
     mode INT NOT NULL, CHECK (mode IN (0, 1)),
     speechiness DECIMAL(16,15) CHECK (FLOOR(speechiness) = 0 AND CEIL(speechiness) = 1),
     acousticness DECIMAL(16,15) CHECK (FLOOR(acousticness) = 0 AND CEIL(acousticness) = 1),
-    instrumentalness DECIMAL(16,15) CHECK (FLOOR(instrumentalness) = 0 AND CEIL(instrumentalness) = 1),
+    instrumentalness DECIMAL(16,15) CHECK (0 <= instrumentalness AND instrumentalness <= 1),
     liveness DECIMAL(16,15) CHECK (FLOOR(liveness) = 0 AND CEIL(liveness) = 1),
     valence DECIMAL(16,15) CHECK (FLOOR(valence) = 0 AND CEIL(valence) = 1),
     tempo DECIMAL(7, 3),
