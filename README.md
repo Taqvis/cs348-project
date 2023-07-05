@@ -19,3 +19,14 @@ mysql> USE testDB;
 mysql> source %PROJECT_LOCATION%/cs348-project-backend/createTable.sql
 mysql> source %PROJECT_LOCATION%/dataset/load-sample.sql
 ```
+
+# loading backend
+1. Set up environment variables in cs348-project-backend/src/main/resources/application.properties
+   ${DB_USER} = MySQL username
+   ${DB_PASSWORD} = MySQL password
+   ${DB_NAME} = Database name
+2. Run project
+
+# loading frontend
+1. Clone `frontend-main` branch
+2. Following README in the branch
