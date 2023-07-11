@@ -19,11 +19,11 @@ public class Track {
   @Column(name = "track_id", columnDefinition = "VARCHAR(30)", nullable = false)
   public String trackId;
 
-  @JsonManagedReference
+  @JsonManagedReference(value = "artist-track")
   @OneToMany(mappedBy = "track", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   public List<TrackArtist> artists;
 
-  @JsonManagedReference
+  @JsonManagedReference(value = "playlist-track")
   @OneToMany(mappedBy = "track", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   public List<PlaylistTrack> playlistTracks;
 
