@@ -28,13 +28,6 @@ public class MusicService {
 
     @Autowired
     private UserRepository userRepository;
-
-    public String createTrackEntity() {
-        Track trackEntity = new Track();
-        trackEntity.setTrackName("Example name");
-        trackRepository.save(trackEntity);
-        return "Saved";
-    }
     
     public List<Track> getAllTracks() {
         return trackRepository.findAll();
@@ -46,10 +39,6 @@ public class MusicService {
 
     public List<TrackArtist> findArtistsByName(final String name) {
         return trackArtistRepository.findByName(name);
-    }
-
-    public List<TrackArtist> findArtistsById(final String id) {
-        return trackArtistRepository.findByTrackId(id);
     }
 
     public List<TrackArtist> getAllArtists() {
