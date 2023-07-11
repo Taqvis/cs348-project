@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
-public class TrackArtistID implements Serializable {
-    public String trackId;
-    public String artist;
+public class PlaylistID implements Serializable {
+    private String username;
+    private String playlistName;
 }

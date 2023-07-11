@@ -2,8 +2,13 @@ package com.example.cs348project.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,7 +18,6 @@ import lombok.Setter;
 public class TrackArtist {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "track_id", columnDefinition = "VARCHAR(30)")
     public String trackId;
 
@@ -22,8 +26,9 @@ public class TrackArtist {
     public String artist;
 
     @JsonBackReference
-    @ManyToOne()
-    @JoinColumn(name = "track_id")
+    @ManyToOne
+    @JoinColumn(name = "track_id", referencedColumnName = "track_id", insertable = false)
     public Track track;
 
 }
+
