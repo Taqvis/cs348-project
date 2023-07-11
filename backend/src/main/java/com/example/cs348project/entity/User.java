@@ -14,17 +14,17 @@ import java.util.List;
 public class User {
 
     @Id
-    @Column(name = "username")
+    @Column(name = "username", columnDefinition = "VARCHAR(36)", nullable = false)
     private String username;
 
-    @Column(name = "display_name")
+    @Column(name = "display_name", columnDefinition = "VARCHAR(36)", nullable = false)
     private String displayName;
 
-    @Column(name = "password")
+    @Column(name = "password", columnDefinition = "VARCHAR(20)", nullable = false)
     private String password;
 
-    @Column(name = "tier")
-    private String tier;
+    @Column(name = "tier", columnDefinition = "INT")
+    private int tier;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
