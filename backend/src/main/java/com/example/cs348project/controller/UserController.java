@@ -40,7 +40,7 @@ public class UserController {
     @PostMapping("/user/create") 
     public String createAccount(@RequestParam final String username, @RequestParam final String displayName, @RequestParam final String password){
         if (username == null || displayName == null || password == null) {
-            throw new IllegalArgumentException("one of the information missing : uername, display name, password");
+            throw new IllegalArgumentException("one of the information missing : username, display name, password");
         }
         else if (8 > password.length() || password.length() > 20) {
             throw new IllegalArgumentException("password length should be between 8 and 20 inclusive");

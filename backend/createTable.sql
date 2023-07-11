@@ -56,8 +56,8 @@ CREATE TABLE IF NOT EXISTS Playlist_Tracks (
 CREATE TABLE IF NOT EXISTS Playlist_Likes (
     owner_username VARCHAR(36) NOT NULL, 
     playlist_name VARCHAR(36) NOT NULL, 
-    liked_username VARCHAR(36) NOT NULL, 
-    PRIMARY KEY (owner_username, playlist_name, liked_username),    
+    liked_username VARCHAR(36) NOT NULL,
+    PRIMARY KEY (owner_username, playlist_name, liked_username),
     FOREIGN KEY (owner_username) REFERENCES Users(username) ON DELETE CASCADE,
 	FOREIGN KEY (owner_username, playlist_name) REFERENCES Playlists(username, playlist_name) ON DELETE CASCADE,
     FOREIGN KEY (liked_username) REFERENCES Users(username) ON DELETE CASCADE

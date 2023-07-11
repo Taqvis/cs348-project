@@ -13,7 +13,6 @@ import lombok.Setter;
 public class TrackArtist {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "track_id", columnDefinition = "VARCHAR(30)")
     public String trackId;
 
@@ -22,8 +21,9 @@ public class TrackArtist {
     public String artist;
 
     @JsonBackReference
-    @ManyToOne()
-    @JoinColumn(name = "track_id")
+    @ManyToOne
+    @JoinColumn(name = "track_id", referencedColumnName = "track_id", insertable = false)
     public Track track;
 
 }
+

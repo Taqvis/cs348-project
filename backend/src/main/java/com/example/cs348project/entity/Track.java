@@ -23,6 +23,10 @@ public class Track {
   @OneToMany(mappedBy = "track", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   public List<TrackArtist> artists;
 
+  @JsonManagedReference
+  @OneToMany(mappedBy = "track", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  public List<PlaylistTrack> playlistTracks;
+
   @Column(name = "album_name", columnDefinition = "VARCHAR(254)", nullable = false)
   public String albumName;
 
