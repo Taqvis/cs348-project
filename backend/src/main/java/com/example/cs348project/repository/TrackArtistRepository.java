@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface TrackArtistRepository extends JpaRepository<TrackArtist, TrackArtistID> {
 
-    @Query(value = "SELECT * FROM Track_Artists WHERE artist = :name", nativeQuery = true)
+    @Query(value = "SELECT * FROM Track_Artists WHERE artist LIKE CONCAT('%',:name,'%')", nativeQuery = true)
     List<TrackArtist> findByName(@Param("name") final String name);
 
 	@Query(value = "SELECT * FROM Track_Artists WHERE track_id = :id", nativeQuery = true)
