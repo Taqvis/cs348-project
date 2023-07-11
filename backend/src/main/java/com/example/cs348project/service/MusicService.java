@@ -34,7 +34,11 @@ public class MusicService {
     }
 
     public List<Track> findTrackByName(final String name) {
-        return trackRepository.findByName(name);
+        List<Track> tracks = trackRepository.findByName(name);
+        List<TrackArtist> artists = findArtistsByName(name);
+        artists.forEach(artist -> tracks.add(artist.track));
+
+        return tracks;
     }
 
     public List<TrackArtist> findArtistsByName(final String name) {
