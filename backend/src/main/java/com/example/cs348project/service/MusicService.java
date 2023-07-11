@@ -81,4 +81,9 @@ public class MusicService {
         playlistLikeRepository.deleteById(new PlaylistLikeID(ownerName, playlistName, username));
     }
 
+    public List<Track> getRecommendations(String userId) {
+        List<String> recommendedTrackIDs = trackRepository.getRecommendations(userId);
+        return trackRepository.findAllById(recommendedTrackIDs);
+    }
+
 }

@@ -20,17 +20,17 @@ public class User {
     @Column(name = "display_name", columnDefinition = "VARCHAR(36)", nullable = false)
     private String displayName;
 
-    @Column(name = "password", columnDefinition = "VARCHAR(20)", nullable = false)
+    @Column(name = "password", columnDefinition = "VARCHAR(60)", nullable = false)
     private String password;
 
     @Column(name = "tier", columnDefinition = "INT")
     private int tier;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "playlist-owner")
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Playlist> ownedPlaylists;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "liked-user")
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PlaylistLike> likedPlaylists;
 

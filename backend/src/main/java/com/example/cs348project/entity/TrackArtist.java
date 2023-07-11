@@ -20,7 +20,7 @@ public class TrackArtist {
 	@Column(name = "artist", columnDefinition = "VARCHAR(254)")
     public String artist;
 
-    @JsonBackReference
+    @JsonBackReference(value = "artist-track")
     @ManyToOne
     @JoinColumn(name = "track_id", referencedColumnName = "track_id", insertable = false)
     public Track track;
