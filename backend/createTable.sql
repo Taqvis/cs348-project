@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS Users (
 	username VARCHAR(36) NOT NULL,
     display_name VARCHAR(36) NOT NULL,
     password VARCHAR(20) NOT NULL CHECK (LENGTH(password) >= 8),
+    rank INT,
     PRIMARY KEY (username)
 );
 
@@ -42,7 +43,7 @@ CREATE TABLE IF NOT EXISTS Track_Artists (
     FOREIGN KEY (track_id) REFERENCES Tracks(track_id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS Playlist_Songs (
+CREATE TABLE IF NOT EXISTS Playlist_Tracks (
     username  VARCHAR(36) NOT NULL,
     playlist_name VARCHAR(36) NOT NULL,
     track_id VARCHAR(30) NOT NULL, 
@@ -52,22 +53,12 @@ CREATE TABLE IF NOT EXISTS Playlist_Songs (
 	FOREIGN KEY (track_id) REFERENCES Tracks(track_id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS Playlist_Members (
-    owner_username VARCHAR(36) NOT NULL,
-    playlist_name VARCHAR(36) NOT NULL,
-    member_username VARCHAR(36) NOT NULL,
-    PRIMARY KEY (owner_username, playlist_name, member_username),
-	FOREIGN KEY (owner_username) REFERENCES Users(username) ON DELETE CASCADE,
-	FOREIGN KEY (owner_username, playlist_name) REFERENCES Playlists(username, playlist_name) ON DELETE CASCADE,
-	FOREIGN KEY (member_username) REFERENCES Users(username) ON DELETE CASCADE
-);
-
 CREATE TABLE IF NOT EXISTS Playlist_Likes (
     owner_username VARCHAR(36) NOT NULL, 
     playlist_name VARCHAR(36) NOT NULL, 
-    member_username VARCHAR(36) NOT NULL, 
+    liked_username VARCHAR(36) NOT NULL, 
     PRIMARY KEY (owner_username, playlist_name, member_username),    
     FOREIGN KEY (owner_username) REFERENCES Users(username) ON DELETE CASCADE,
 	FOREIGN KEY (owner_username, playlist_name) REFERENCES Playlists(username, playlist_name) ON DELETE CASCADE,
-    FOREIGN KEY (member_username) REFERENCES Users(username) ON DELETE CASCADE
+    FOREIGN KEY (liked_username) REFERENCES Users(username) ON DELETE CASCADE
 );
