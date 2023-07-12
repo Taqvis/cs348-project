@@ -8,7 +8,8 @@ Create a table called testDB refer to [https://learn.uwaterloo.ca/d2l/le/content
 3. Create the sample data using the data in dataset folder or clone and run the create-sample.py file
 4. Place the 2 sample datasets in your --secure-file-priv directory, which you can obtain by running `SHOW VARIABLES LIKE "secure_file_priv";`.
 5. Run cs348-project-backend/createTable.sql to create all tables in schema.
-6. Run the statements in dataset/load-sample.sql. If necessary, update the file location for the sample datasets.
+6. Run cs348-project-backend/createViewsAndTriggers.sql.
+7. Update the path to your MySQL secure-file directory in dataset/load-sample.sql and run the file.
 
 sample setup process:
 

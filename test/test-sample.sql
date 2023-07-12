@@ -18,25 +18,24 @@ INSERT INTO Playlists VALUES ("testuser", "Test Playlist");
 
 SELECT * FROM Playlists WHERE username = "testuser" AND playlist_name = "Test Playlist";
 
--- Feature 2.ii: Rename a playlist
+-- Feature 2.ii: Add song to playlist
+INSERT INTO Playlist_Tracks VALUES ("testuser", "Test Playlist", "02shCNmb6IvgB5jLqKjtkK");
+INSERT INTO Playlist_Tracks VALUES ("testuser", "Test Playlist", "4GroumsjzAcgCwJzTGY7px");
+
+-- Feature 2.iii: View songs in a playlist
+SELECT * FROM Playlist_Tracks 
+	NATURAL JOIN Tracks 
+	NATURAL JOIN Track_Artists 
+WHERE username = "testuser" 
+	AND playlist_name = "Test Playlist";
+
+-- Feature 2.iv: Rename a playlist
 UPDATE Playlists 
 SET playlist_name="New Test Playlist" 
 WHERE playlist_name="Test Playlist" 
 	AND username="testuser";
 
-SELECT * FROM Playlists WHERE username = "testuser";
-
--- Feature 2.iii: Add song to playlist
-INSERT INTO Playlist_Tracks VALUES ("testuser", "New Test Playlist", "02shCNmb6IvgB5jLqKjtkK");
-INSERT INTO Playlist_Tracks VALUES ("testuser", "New Test Playlist", "4GroumsjzAcgCwJzTGY7px");
-
--- Feature 2.iv: View songs in a playlist
-SELECT * FROM Playlist_Tracks 
-	NATURAL JOIN Tracks 
-	NATURAL JOIN Track_Artists 
-WHERE username = "testuser" 
-	AND playlist_name = "New Test Playlist";
-
+SELECT * FROM Playlists NATURAL JOIN Playlist_Tracks WHERE username = "testuser";
 
 -- Feature 2.v: Delete a song from the playlist
 DELETE FROM Playlist_Tracks
@@ -58,9 +57,10 @@ INSERT INTO Playlists VALUES ("testuser2", "Another Playlist");
 
 -- Test User likes Test User 2's "Another Playlist"
 INSERT INTO Playlist_Likes VALUES ("testuser2", "Another Playlist", "testuser");
+INSERT INTO Playlist_Tracks VALUES ("testuser2", "Another Playlist", "02shCNmb6IvgB5jLqKjtkK");
+INSERT INTO Playlist_Tracks VALUES ("testuser2", "Another Playlist", "4GroumsjzAcgCwJzTGY7px");
 
 SELECT * FROM Playlist_Likes WHERE liked_username="testuser";
-
 
 -- Feature 1.i: Search song by track name and artist name
 SELECT * FROM Tracks
@@ -69,7 +69,7 @@ WHERE Tracks.track_name LIKE "%Nevada%"
 	OR Track_Artists.artist LIKE "%Nevada%"
 ORDER BY popularity DESC;
 
--- Feature 1.ii: Searh playlist by name
+-- Feature 1.ii: Search playlist by name
 SELECT * FROM Playlists WHERE playlist_name LIKE "%New Test Playlist%";
 
 -- Feature 4: Song Recommendations
@@ -81,8 +81,7 @@ WITH liked_avg AS (
 		(SELECT track_id FROM LikedPlaylist 
 		WHERE liked_username = "testuser"))
 SELECT * FROM Tracks, liked_avg 
-WHERE ABS((Tracks.danceability - liked_avg.averageVal)) <= 0.05
-LIMIT 10;
+WHERE ABS((Tracks.danceability - liked_avg.averageVal)) <= 0.05;
 
 -- Feature 6: Artist Page
 -- Feature 6.i: Display list of albums

@@ -1,10 +1,9 @@
-mysql> ^C
 mysql> source C:\Users\Jesse\Desktop\loo\CS348\cs348-project\test\test-sample.sql
-Query OK, 2 rows affected (0.04 sec)
+Query OK, 4 rows affected (0.00 sec)
 
 Query OK, 8 rows affected (0.00 sec)
 
-Query OK, 8 rows affected (0.01 sec)
+Query OK, 8 rows affected (0.00 sec)
 
 Query OK, 1 row affected (0.00 sec)
 
@@ -32,29 +31,30 @@ Query OK, 1 row affected (0.00 sec)
 1 row in set (0.00 sec)
 
 Query OK, 1 row affected (0.00 sec)
-Rows matched: 1  Changed: 1  Warnings: 0
-
-+----------+-------------------+
-| username | playlist_name     |
-+----------+-------------------+
-| testuser | New Test Playlist |
-+----------+-------------------+
-1 row in set (0.00 sec)
 
 Query OK, 1 row affected (0.00 sec)
 
-Query OK, 1 row affected (0.00 sec)
-
-+------------------------+----------+-------------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+------------------+
-| track_id               | username | playlist_name     | album_name | track_name | popularity | duration_ms | explicit | danceability      | energy            | music_key | loudness           | mode | speechiness       | acousticness      | instrumentalness  | liveness          | valence           | tempo   | time_signature | track_genre | artist           |
-+------------------------+----------+-------------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+------------------+
-| 02shCNmb6IvgB5jLqKjtkK | testuser | New Test Playlist | Nevada     | Nevada     |         71 |      208561 |        0 | 0.605000000000000 | 0.783000000000000 |         3 | -4.271000000000000 |    1 | 0.032400000000000 | 0.299000000000000 | 0.000175000000000 | 0.133000000000000 | 0.105000000000000 | 124.015 |              4 | edm         | Cozi Zuehlsdorff |
-| 02shCNmb6IvgB5jLqKjtkK | testuser | New Test Playlist | Nevada     | Nevada     |         71 |      208561 |        0 | 0.605000000000000 | 0.783000000000000 |         3 | -4.271000000000000 |    1 | 0.032400000000000 | 0.299000000000000 | 0.000175000000000 | 0.133000000000000 | 0.105000000000000 | 124.015 |              4 | edm         | Vicetone         |
-| 4GroumsjzAcgCwJzTGY7px | testuser | New Test Playlist | Migration  | Ontario    |         40 |      232549 |        0 | 0.540000000000000 | 0.461000000000000 |        10 | -9.427000000000000 |    0 | 0.034100000000000 | 0.236000000000000 | 0.531000000000000 | 0.086500000000000 | 0.107000000000000 |  89.995 |              4 | trip-hop    | Bonobo           |
-+------------------------+----------+-------------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+------------------+
++------------------------+----------+---------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+------------------+
+| track_id               | username | playlist_name | album_name | track_name | popularity | duration_ms | explicit | danceability      | energy            | music_key | loudness           | mode | speechiness       | acousticness      | instrumentalness  | liveness          | valence           | tempo   | time_signature | track_genre | artist           |
++------------------------+----------+---------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+------------------+
+| 02shCNmb6IvgB5jLqKjtkK | testuser | Test Playlist | Nevada     | Nevada     |         71 |      208561 |        0 | 0.605000000000000 | 0.783000000000000 |         3 | -4.271000000000000 |    1 | 0.032400000000000 | 0.299000000000000 | 0.000175000000000 | 0.133000000000000 | 0.105000000000000 | 124.015 |              4 | edm         | Cozi Zuehlsdorff |
+| 02shCNmb6IvgB5jLqKjtkK | testuser | Test Playlist | Nevada     | Nevada     |         71 |      208561 |        0 | 0.605000000000000 | 0.783000000000000 |         3 | -4.271000000000000 |    1 | 0.032400000000000 | 0.299000000000000 | 0.000175000000000 | 0.133000000000000 | 0.105000000000000 | 124.015 |              4 | edm         | Vicetone         |
+| 4GroumsjzAcgCwJzTGY7px | testuser | Test Playlist | Migration  | Ontario    |         40 |      232549 |        0 | 0.540000000000000 | 0.461000000000000 |        10 | -9.427000000000000 |    0 | 0.034100000000000 | 0.236000000000000 | 0.531000000000000 | 0.086500000000000 | 0.107000000000000 |  89.995 |              4 | trip-hop    | Bonobo           |
++------------------------+----------+---------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+------------------+
 3 rows in set (0.00 sec)
 
 Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
++----------+-------------------+------------------------+
+| username | playlist_name     | track_id               |
++----------+-------------------+------------------------+
+| testuser | New Test Playlist | 02shCNmb6IvgB5jLqKjtkK |
+| testuser | New Test Playlist | 4GroumsjzAcgCwJzTGY7px |
++----------+-------------------+------------------------+
+2 rows in set (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
 
 +------------------------+------------+
 | track_id               | track_name |
@@ -67,8 +67,18 @@ Query OK, 1 row affected (0.00 sec)
 
 Query OK, 1 row affected (0.00 sec)
 
-ERROR 1055 (42000): Expression #1 of PARTITION BY or ORDER BY clause of window '<unnamed window>' is not in GROUP BY clause and contains nonaggregated column 'l.likes' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
-Empty set (0.00 sec)
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
++----------------+------------------+----------------+
+| owner_username | playlist_name    | liked_username |
++----------------+------------------+----------------+
+| testuser2      | Another Playlist | testuser       |
++----------------+------------------+----------------+
+1 row in set (0.00 sec)
 
 +------------------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+------------------+
 | track_id               | album_name | track_name | popularity | duration_ms | explicit | danceability      | energy            | music_key | loudness           | mode | speechiness       | acousticness      | instrumentalness  | liveness          | valence           | tempo   | time_signature | track_genre | artist           |
@@ -85,7 +95,38 @@ Empty set (0.00 sec)
 +----------+-------------------+
 1 row in set (0.00 sec)
 
-Empty set (0.00 sec)
++------------------------+---------------------------------------------------------------------+----------------------------------------------------------------------------------------------+------------+-------------+----------+-------------------+-------------------+-----------+---------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------------+-----------------------+
+| track_id               | album_name                                                          | track_name                                                                                   | popularity | duration_ms | explicit | danceability      | energy            | music_key | loudness            | mode | speechiness       | acousticness      | instrumentalness  | liveness          | valence           | tempo   | time_signature | track_genre       | averageVal            |
++------------------------+---------------------------------------------------------------------+----------------------------------------------------------------------------------------------+------------+-------------+----------+-------------------+-------------------+-----------+---------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------------+-----------------------+
+| 02shCNmb6IvgB5jLqKjtkK | Nevada                                                              | Nevada                                                                                       |         71 |      208561 |        0 | 0.605000000000000 | 0.783000000000000 |         3 |  -4.271000000000000 |    1 | 0.032400000000000 | 0.299000000000000 | 0.000175000000000 | 0.133000000000000 | 0.105000000000000 | 124.015 |              4 | edm               | 0.5725000000000000000 |
+| 07F3l9pvdeysyHwIjNHowQ | Group Therapy 500 Live From Los Angeles - Deep Set                  | Closer - Jono Grant's Deep Mix                                                               |         36 |      233966 |        0 | 0.619000000000000 | 0.723000000000000 |         2 |  -9.814000000000000 |    0 | 0.035100000000000 | 0.015500000000000 | 0.729000000000000 | 0.255000000000000 | 0.135000000000000 | 123.997 |              4 | progressive-house | 0.5725000000000000000 |
+| 0HUQDPIFCHff0OQI2ZB9Bc | Weihnachten Musik                                                   | It's Christmas                                                                               |          0 |      194706 |        0 | 0.598000000000000 | 0.447000000000000 |         8 |  -7.932000000000000 |    1 | 0.040400000000000 | 0.224000000000000 | 0.000000000000000 | 0.070400000000000 | 0.365000000000000 | 123.855 |              4 | j-pop             | 0.5725000000000000000 |
+| 1B8WdDScvobpFsZLfdmIE1 | Hybrid Theory                                                       | A Place for My Head                                                                          |         45 |      184640 |        0 | 0.603000000000000 | 0.908000000000000 |        11 |  -5.254000000000000 |    1 | 0.184000000000000 | 0.014400000000000 | 0.000000000000000 | 0.671000000000000 | 0.457000000000000 | 133.063 |              4 | grunge            | 0.5725000000000000000 |
+| 1e0V7CMEcXaPAMtL4b5VtV | Out of My Head                                                      | Out of My Head                                                                               |         57 |      162382 |        0 | 0.549000000000000 | 0.946000000000000 |        11 |  -5.031000000000000 |    1 | 0.039500000000000 | 0.000059700000000 | 0.010100000000000 | 0.124000000000000 | 0.189000000000000 | 123.995 |              4 | groove            | 0.5725000000000000000 |
+| 1vrlyY6q02MtycTZFdmEDW | Carolina Sound                                                      | Biltmore Hills                                                                               |         16 |      134545 |        0 | 0.602000000000000 | 0.428000000000000 |        10 |  -9.876000000000000 |    0 | 0.038800000000000 | 0.763000000000000 | 0.907000000000000 | 0.105000000000000 | 0.481000000000000 |  87.996 |              4 | study             | 0.5725000000000000000 |
+| 1XotHNg5Tnpcyq1R2nJ7Na | Dhobi Ghat                                                          | Munna?S Love                                                                                 |         19 |      145450 |        0 | 0.576000000000000 | 0.137000000000000 |         4 | -20.681000000000000 |    0 | 0.050900000000000 | 0.986000000000000 | 0.897000000000000 | 0.087100000000000 | 0.532000000000000 | 104.033 |              4 | ambient           | 0.5725000000000000000 |
+| 20MV2Avs2v1liJjlUXoVnB | MARE                                                                | Sambadi Didi                                                                                 |         17 |      356719 |        0 | 0.525000000000000 | 0.292000000000000 |        10 | -14.041000000000000 |    1 | 0.067500000000000 | 0.938000000000000 | 0.672000000000000 | 0.084500000000000 | 0.412000000000000 | 170.983 |              4 | tango             | 0.5725000000000000000 |
+| 2Bk6sJI1RkMrAQyUCtr1qx | Kaisi Ho ?                                                          | Kaisi Ho ?                                                                                   |         39 |      172867 |        0 | 0.549000000000000 | 0.281000000000000 |         5 | -12.514000000000000 |    1 | 0.035800000000000 | 0.942000000000000 | 0.000112000000000 | 0.101000000000000 | 0.539000000000000 | 147.019 |              4 | singer-songwriter | 0.5725000000000000000 |
+| 2nl7FV62VnaIV80DCca2gk | Pop Brandneu                                                        | Sun Will Shine                                                                               |          0 |      201700 |        0 | 0.534000000000000 | 0.714000000000000 |         6 |  -6.347000000000000 |    0 | 0.062900000000000 | 0.006330000000000 | 0.000000000000000 | 0.087900000000000 | 0.415000000000000 | 125.990 |              4 | edm               | 0.5725000000000000000 |
+| 2vPZ4Lklyu75zBR3SgbFNI | All Hope Is Gone (10th Anniversary)                                 | Snuff                                                                                        |         65 |      276146 |        0 | 0.544000000000000 | 0.690000000000000 |         6 |  -5.723000000000000 |    0 | 0.042500000000000 | 0.012000000000000 | 0.009500000000000 | 0.061500000000000 | 0.219000000000000 | 123.962 |              4 | metal             | 0.5725000000000000000 |
+| 39dQlrBRyv03PaPZbYTo51 | Home For Christmas 2022                                             | Christmas Is Going To The Dogs - From "Dr. Seuss' How The Grinch Stole Christmas" Soundtrack |          0 |      177466 |        0 | 0.579000000000000 | 0.865000000000000 |         0 |  -6.198000000000000 |    1 | 0.099600000000000 | 0.146000000000000 | 0.000371000000000 | 0.237000000000000 | 0.921000000000000 | 162.963 |              4 | alt-rock          | 0.5725000000000000000 |
+| 4diVbVvaNOHzjbF86lrleL | The Craig Machine                                                   | Voices In My Head                                                                            |         26 |      249066 |        0 | 0.537000000000000 | 0.185000000000000 |         7 | -15.642000000000000 |    1 | 0.058800000000000 | 0.805000000000000 | 0.000000000000000 | 0.271000000000000 | 0.395000000000000 | 131.232 |              4 | comedy            | 0.5725000000000000000 |
+| 4GroumsjzAcgCwJzTGY7px | Migration                                                           | Ontario                                                                                      |         40 |      232549 |        0 | 0.540000000000000 | 0.461000000000000 |        10 |  -9.427000000000000 |    0 | 0.034100000000000 | 0.236000000000000 | 0.531000000000000 | 0.086500000000000 | 0.107000000000000 |  89.995 |              4 | trip-hop          | 0.5725000000000000000 |
+| 4LrqQJeqKbObLdsEego2um | Ballermann Party Mix - Alle Apräs Ski HÅtten Hits der letzten Jahre | Lotusblume                                                                                   |          1 |      220000 |        0 | 0.574000000000000 | 0.998000000000000 |         6 |  -3.628000000000000 |    1 | 0.065800000000000 | 0.010100000000000 | 0.000000000000000 | 0.352000000000000 | 0.934000000000000 | 139.985 |              3 | party             | 0.5725000000000000000 |
+| 4oyUjJauYl4zVrozOYk3il | Babel                                                               | Wolves                                                                                       |         58 |      180004 |        0 | 0.592000000000000 | 0.848000000000000 |        11 |  -5.631000000000000 |    0 | 0.088700000000000 | 0.001340000000000 | 0.000001150000000 | 0.096400000000000 | 0.399000000000000 | 129.900 |              4 | blues             | 0.5725000000000000000 |
+| 4PtZE0h5oyPhCtPjg3NeYQ | Jar Of Flies                                                        | No Excuses                                                                                   |         64 |      255573 |        0 | 0.527000000000000 | 0.838000000000000 |         3 |  -6.013000000000000 |    1 | 0.032300000000000 | 0.020600000000000 | 0.000620000000000 | 0.070000000000000 | 0.721000000000000 | 117.454 |              4 | grunge            | 0.5725000000000000000 |
+| 4TsWu0ifycFx5uLguL1s74 | Da Roáa Pra Cidade (Ao Vivo)                                        | Nunca Vai Ser Eu - Ao Vivo                                                                   |         37 |      146562 |        0 | 0.547000000000000 | 0.950000000000000 |         5 |  -2.625000000000000 |    0 | 0.046000000000000 | 0.184000000000000 | 0.000000000000000 | 0.170000000000000 | 0.964000000000000 | 172.073 |              4 | forro             | 0.5725000000000000000 |
+| 4Voz1fxpNPYB1mq5Nc9i6m | The End Of All Things To Come                                       | Solve et Coagula                                                                             |         26 |      169173 |        0 | 0.569000000000000 | 0.990000000000000 |         1 |  -4.371000000000000 |    1 | 0.102000000000000 | 0.000019800000000 | 0.067500000000000 | 0.318000000000000 | 0.417000000000000 | 107.112 |              4 | groove            | 0.5725000000000000000 |
+| 560hhPa9vwZonMVt56uSMd | Sar’                                                                | GÅzel Adam                                                                                   |         39 |      252813 |        0 | 0.605000000000000 | 0.216000000000000 |         8 | -11.590000000000000 |    0 | 0.039100000000000 | 0.907000000000000 | 0.000012700000000 | 0.095600000000000 | 0.230000000000000 | 119.623 |              4 | turkish           | 0.5725000000000000000 |
+| 59ZsoLhvMPywknUohMX3h9 | Symphony of the War                                                 | Reflections                                                                                  |          0 |      105333 |        0 | 0.531000000000000 | 0.973000000000000 |         9 |  -3.590000000000000 |    0 | 0.089500000000000 | 0.000343000000000 | 0.801000000000000 | 0.589000000000000 | 0.289000000000000 | 120.044 |              4 | iranian           | 0.5725000000000000000 |
+| 5KXE69qhSBH9ksigiYFSG2 | Montagnes Russes                                                    | Bordel                                                                                       |         37 |      192533 |        1 | 0.581000000000000 | 0.565000000000000 |         0 |  -7.599000000000000 |    0 | 0.035200000000000 | 0.147000000000000 | 0.000000000000000 | 0.120000000000000 | 0.318000000000000 | 176.963 |              3 | french            | 0.5725000000000000000 |
+| 61k7xAKMsuvTf2j2YnieSi | Sky High                                                            | Sky High                                                                                     |         61 |      236254 |        0 | 0.592000000000000 | 0.956000000000000 |         0 |  -2.068000000000000 |    0 | 0.044000000000000 | 0.105000000000000 | 0.002890000000000 | 0.344000000000000 | 0.193000000000000 | 128.084 |              4 | edm               | 0.5725000000000000000 |
+| 6zSwuWnZ8kRVHqDduHWuTI | êxitos                                                              | Que Nunca Me Falte                                                                           |         39 |      280842 |        0 | 0.622000000000000 | 0.567000000000000 |         4 |  -9.138000000000000 |    0 | 0.042100000000000 | 0.292000000000000 | 0.000015700000000 | 0.078900000000000 | 0.960000000000000 | 169.383 |              4 | salsa             | 0.5725000000000000000 |
+| 7JllgrXbRbCh4ha7y15wGJ | Bomberman 2017                                                      | Bomberman 2017                                                                               |         22 |      161447 |        0 | 0.582000000000000 | 0.999000000000000 |         1 |  -3.826000000000000 |    1 | 0.077800000000000 | 0.169000000000000 | 0.907000000000000 | 0.359000000000000 | 0.369000000000000 | 151.988 |              4 | hardstyle         | 0.5725000000000000000 |
+| 7qOsSOpiL3R8RKyiBtIYNQ | SOUVENIR                                                            | SOUVENIR                                                                                     |         74 |      264126 |        0 | 0.622000000000000 | 0.940000000000000 |         2 |  -4.997000000000000 |    1 | 0.041300000000000 | 0.009400000000000 | 0.000006480000000 | 0.095700000000000 | 0.960000000000000 | 158.056 |              4 | j-rock            | 0.5725000000000000000 |
+| 7yDjFcO9qsgnSKD5Cpo6jg | Ao Vivo Sem Abuso                                                   | Sem Abuso - Ao Vivo                                                                          |         54 |      217840 |        0 | 0.586000000000000 | 0.799000000000000 |         9 |  -7.894000000000000 |    0 | 0.037700000000000 | 0.354000000000000 | 0.000000000000000 | 0.464000000000000 | 0.898000000000000 | 159.542 |              4 | samba             | 0.5725000000000000000 |
++------------------------+---------------------------------------------------------------------+----------------------------------------------------------------------------------------------+------------+-------------+----------+-------------------+-------------------+-----------+---------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------------+-----------------------+
+27 rows in set (0.00 sec)
 
 +---------------------+
 | album_name          |
@@ -115,15 +156,36 @@ Query OK, 1 row affected (0.00 sec)
 
 Query OK, 1 row affected (0.00 sec)
 
++----------+
+| COUNT(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
 Empty set (0.00 sec)
 
 Query OK, 1 row affected (0.00 sec)
 
 Empty set (0.00 sec)
 
-Query OK, 0 rows affected (0.00 sec)
+Query OK, 1 row affected (0.00 sec)
 
-Empty set (0.00 sec)
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
 
 Query OK, 1 row affected (0.00 sec)
 
@@ -135,27 +197,20 @@ Query OK, 1 row affected (0.00 sec)
 
 Query OK, 1 row affected (0.00 sec)
 
-Query OK, 1 row affected (0.00 sec)
+Query OK, 6 rows affected (0.00 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
 
 Query OK, 1 row affected (0.00 sec)
 
-Query OK, 1 row affected (0.00 sec)
-
-Query OK, 1 row affected (0.00 sec)
-
-Query OK, 1 row affected (0.00 sec)
-
-Query OK, 1 row affected (0.00 sec)
-
-Query OK, 1 row affected (0.00 sec)
-
-Query OK, 1 row affected (0.00 sec)
-
-ERROR 1055 (42000): Expression #1 of PARTITION BY or ORDER BY clause of window '<unnamed window>' is not in GROUP BY clause and contains nonaggregated column 'l.likes' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
-ERROR 1055 (42000): Expression #1 of PARTITION BY or ORDER BY clause of window '<unnamed window>' is not in GROUP BY clause and contains nonaggregated column 'l.likes' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
-ERROR 1055 (42000): Expression #1 of PARTITION BY or ORDER BY clause of window '<unnamed window>' is not in GROUP BY clause and contains nonaggregated column 'l.likes' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
-ERROR 1055 (42000): Expression #1 of PARTITION BY or ORDER BY clause of window '<unnamed window>' is not in GROUP BY clause and contains nonaggregated column 'l.likes' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
-ERROR 1055 (42000): Expression #1 of PARTITION BY or ORDER BY clause of window '<unnamed window>' is not in GROUP BY clause and contains nonaggregated column 'l.likes' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
 ERROR 1055 (42000): Expression #1 of PARTITION BY or ORDER BY clause of window '<unnamed window>' is not in GROUP BY clause and contains nonaggregated column 'l.likes' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
 +------+
 | tier |
