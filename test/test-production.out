@@ -1,0 +1,368 @@
+mysql> source C:\Users\Jesse\Desktop\loo\CS348\cs348-project\test\test-production.sql
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+Query OK, 4 rows affected (0.01 sec)
+
+Query OK, 8 rows affected (0.01 sec)
+
+Query OK, 8 rows affected (0.01 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
++----------+--------------+----------+------+
+| username | display_name | password | tier |
++----------+--------------+----------+------+
+| testuser | Test User    | testpass | NULL |
++----------+--------------+----------+------+
+1 row in set (0.00 sec)
+
++----------+
+| COUNT(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
++----------+---------------+
+| username | playlist_name |
++----------+---------------+
+| testuser | Test Playlist |
++----------+---------------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
++------------------------+----------+---------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+------------------+
+| track_id               | username | playlist_name | album_name | track_name | popularity | duration_ms | explicit | danceability      | energy            | music_key | loudness           | mode | speechiness       | acousticness      | instrumentalness  | liveness          | valence           | tempo   | time_signature | track_genre | artist           |
++------------------------+----------+---------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+------------------+
+| 02shCNmb6IvgB5jLqKjtkK | testuser | Test Playlist | Nevada     | Nevada     |         71 |      208561 |        0 | 0.605000000000000 | 0.783000000000000 |         3 | -4.271000000000000 |    1 | 0.032400000000000 | 0.299000000000000 | 0.000175000000000 | 0.133000000000000 | 0.105000000000000 | 124.015 |              4 | edm         | Cozi Zuehlsdorff |
+| 02shCNmb6IvgB5jLqKjtkK | testuser | Test Playlist | Nevada     | Nevada     |         71 |      208561 |        0 | 0.605000000000000 | 0.783000000000000 |         3 | -4.271000000000000 |    1 | 0.032400000000000 | 0.299000000000000 | 0.000175000000000 | 0.133000000000000 | 0.105000000000000 | 124.015 |              4 | edm         | Vicetone         |
+| 4GroumsjzAcgCwJzTGY7px | testuser | Test Playlist | Migration  | Ontario    |         40 |      232549 |        0 | 0.540000000000000 | 0.461000000000000 |        10 | -9.427000000000000 |    0 | 0.034100000000000 | 0.236000000000000 | 0.531000000000000 | 0.086500000000000 | 0.107000000000000 |  89.995 |              4 | trip-hop    | Bonobo           |
++------------------------+----------+---------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+------------------+
+3 rows in set (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
++----------+-------------------+------------------------+
+| username | playlist_name     | track_id               |
++----------+-------------------+------------------------+
+| testuser | New Test Playlist | 02shCNmb6IvgB5jLqKjtkK |
+| testuser | New Test Playlist | 4GroumsjzAcgCwJzTGY7px |
++----------+-------------------+------------------------+
+2 rows in set (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
++------------------------+------------+
+| track_id               | track_name |
++------------------------+------------+
+| 02shCNmb6IvgB5jLqKjtkK | Nevada     |
++------------------------+------------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
++----------------+------------------+----------------+
+| owner_username | playlist_name    | liked_username |
++----------------+------------------+----------------+
+| testuser2      | Another Playlist | testuser       |
++----------------+------------------+----------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
++----+-------------+---------------+------------+--------+---------------+---------------+---------+-------------------------------+--------+----------+----------------------------------------------+
+| id | select_type | table         | partitions | type   | possible_keys | key           | key_len | ref                           | rows   | filtered | Extra                                        |
++----+-------------+---------------+------------+--------+---------------+---------------+---------+-------------------------------+--------+----------+----------------------------------------------+
+|  1 | SIMPLE      | Track_Artists | NULL       | index  | PRIMARY       | artistsByName | 1018    | NULL                          | 109909 |   100.00 | Using index; Using temporary; Using filesort |
+|  1 | SIMPLE      | Tracks        | NULL       | eq_ref | PRIMARY       | PRIMARY       | 122     | testdb.Track_Artists.track_id |      1 |   100.00 | Using where                                  |
++----+-------------+---------------+------------+--------+---------------+---------------+---------+-------------------------------+--------+----------+----------------------------------------------+
+2 rows in set, 1 warning (0.00 sec)
+
+Query OK, 0 rows affected (1.69 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
++----+-------------+---------------+------------+--------+--------------------------+------------------+---------+-------------------------------+--------+----------+----------------------------------------------+
+| id | select_type | table         | partitions | type   | possible_keys            | key              | key_len | ref                           | rows   | filtered | Extra                                        |
++----+-------------+---------------+------------+--------+--------------------------+------------------+---------+-------------------------------+--------+----------+----------------------------------------------+
+|  1 | SIMPLE      | Track_Artists | NULL       | index  | PRIMARY,artistsByTrackId | artistsByTrackId | 122     | NULL                          | 109909 |   100.00 | Using index; Using temporary; Using filesort |
+|  1 | SIMPLE      | Tracks        | NULL       | eq_ref | PRIMARY                  | PRIMARY          | 122     | testdb.Track_Artists.track_id |      1 |   100.00 | Using where                                  |
++----+-------------+---------------+------------+--------+--------------------------+------------------+---------+-------------------------------+--------+----------+----------------------------------------------+
+2 rows in set, 1 warning (0.00 sec)
+
++----------+------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Query_ID | Duration   | Query                                                                                                                                                      |
++----------+------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|     1501 | 0.00059325 | EXPLAIN SELECT * FROM Tracks
+	NATURAL JOIN Track_Artists 
+WHERE Tracks.track_name LIKE "%a%" 
+	OR Track_Artists.artist LIKE "%a%"
+ORDER BY popularity DESC |
+|     1502 | 1.68830475 | CREATE INDEX artistsByTrackId
+ON Track_Artists(track_id)                                                                                                   |
+|     1503 | 0.00104875 | EXPLAIN SELECT * FROM Tracks
+	NATURAL JOIN Track_Artists 
+WHERE Tracks.track_name LIKE "%a%" 
+	OR Track_Artists.artist LIKE "%a%"
+ORDER BY popularity DESC |
++----------+------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+
+3 rows in set, 1 warning (0.00 sec)
+
++----------+-------------------+
+| username | playlist_name     |
++----------+-------------------+
+| testuser | New Test Playlist |
++----------+-------------------+
+1 row in set (0.00 sec)
+
++----+-------------+------------+------------+--------+------------------------+----------------+---------+------------------------------------------------+-------+----------+------------------------------+
+| id | select_type | table      | partitions | type   | possible_keys          | key            | key_len | ref                                            | rows  | filtered | Extra                        |
++----+-------------+------------+------------+--------+------------------------+----------------+---------+------------------------------------------------+-------+----------+------------------------------+
+|  1 | PRIMARY     | <derived2> | NULL       | system | NULL                   | NULL           | NULL    | NULL                                           |     1 |   100.00 | NULL                         |
+|  1 | PRIMARY     | Tracks     | NULL       | ALL    | NULL                   | NULL           | NULL    | NULL                                           | 96051 |   100.00 | Using where                  |
+|  2 | DERIVED     | l          | NULL       | ref    | PRIMARY,liked_username | liked_username | 146     | const                                          |     1 |   100.00 | Using index; Start temporary |
+|  2 | DERIVED     | pt         | NULL       | ref    | PRIMARY,track_id       | PRIMARY        | 292     | testdb.l.owner_username,testdb.l.playlist_name |     1 |   100.00 | Using index                  |
+|  2 | DERIVED     | Tracks     | NULL       | eq_ref | PRIMARY                | PRIMARY        | 122     | testdb.pt.track_id                             |     1 |   100.00 | NULL                         |
+|  2 | DERIVED     | t          | NULL       | eq_ref | PRIMARY                | PRIMARY        | 122     | testdb.pt.track_id                             |     1 |   100.00 | Using index; End temporary   |
++----+-------------+------------+------------+--------+------------------------+----------------+---------+------------------------------------------------+-------+----------+------------------------------+
+6 rows in set, 1 warning (0.00 sec)
+
+Query OK, 0 rows affected (1.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
++----+-------------+------------+------------+--------+------------------------+----------+---------+--------------------------------------------------+-------+----------+------------------------------+
+| id | select_type | table      | partitions | type   | possible_keys          | key      | key_len | ref                                              | rows  | filtered | Extra                        |
++----+-------------+------------+------------+--------+------------------------+----------+---------+--------------------------------------------------+-------+----------+------------------------------+
+|  1 | PRIMARY     | <derived2> | NULL       | system | NULL                   | NULL     | NULL    | NULL                                             |     1 |   100.00 | NULL                         |
+|  1 | PRIMARY     | Tracks     | NULL       | ALL    | NULL                   | NULL     | NULL    | NULL                                             | 96051 |   100.00 | Using where                  |
+|  2 | DERIVED     | pt         | NULL       | index  | PRIMARY,track_id       | track_id | 122     | NULL                                             |     1 |   100.00 | Using index; Start temporary |
+|  2 | DERIVED     | l          | NULL       | eq_ref | PRIMARY,liked_username | PRIMARY  | 438     | testdb.pt.username,testdb.pt.playlist_name,const |     1 |   100.00 | Using index                  |
+|  2 | DERIVED     | Tracks     | NULL       | eq_ref | PRIMARY                | PRIMARY  | 122     | testdb.pt.track_id                               |     1 |   100.00 | NULL                         |
+|  2 | DERIVED     | t          | NULL       | eq_ref | PRIMARY                | PRIMARY  | 122     | testdb.pt.track_id                               |     1 |   100.00 | Using index; End temporary   |
++----+-------------+------------+------------+--------+------------------------+----------+---------+--------------------------------------------------+-------+----------+------------------------------+
+6 rows in set, 1 warning (0.00 sec)
+
++----------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Query_ID | Duration   | Query                                                                                                                                                                                                                                                                                      |
++----------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|     1505 | 0.00356350 | EXPLAIN WITH liked_avg AS (
+	SELECT AVG(danceability) AS averageVal FROM Tracks
+	WHERE track_id IN 
+		(SELECT track_id FROM LikedPlaylist 
+		WHERE liked_username = "testuser"))
+SELECT * FROM Tracks, liked_avg 
+WHERE ABS((Tracks.danceability - liked_avg.averageVal)) <= 0.05
+LIMIT 10 |
+|     1506 | 1.09636775 | CREATE INDEX tracksByDanceability
+ON Tracks(danceability)                                                                                                                                                                                                                                  |
+|     1507 | 0.00346575 | EXPLAIN WITH liked_avg AS (
+	SELECT AVG(danceability) AS averageVal FROM Tracks
+	WHERE track_id IN 
+		(SELECT track_id FROM LikedPlaylist 
+		WHERE liked_username = "testuser"))
+SELECT * FROM Tracks, liked_avg 
+WHERE ABS((Tracks.danceability - liked_avg.averageVal)) <= 0.05
+LIMIT 10 |
++----------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+3 rows in set, 1 warning (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
++----+-------------+---------+------------+--------+--------------------------+------------------+---------+-------------------------+--------+----------+-------------------------------------------+
+| id | select_type | table   | partitions | type   | possible_keys            | key              | key_len | ref                     | rows   | filtered | Extra                                     |
++----+-------------+---------+------------+--------+--------------------------+------------------+---------+-------------------------+--------+----------+-------------------------------------------+
+|  1 | SIMPLE      | Artists | NULL       | index  | PRIMARY,artistsByTrackId | artistsByTrackId | 122     | NULL                    | 109909 |    10.00 | Using where; Using index; Using temporary |
+|  1 | SIMPLE      | Tracks  | NULL       | eq_ref | PRIMARY                  | PRIMARY          | 122     | testdb.Artists.track_id |      1 |   100.00 | NULL                                      |
++----+-------------+---------+------------+--------+--------------------------+------------------+---------+-------------------------+--------+----------+-------------------------------------------+
+2 rows in set, 1 warning (0.00 sec)
+
+Query OK, 0 rows affected (2.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
++----+-------------+---------+------------+--------+----------------------------------------+---------------+---------+-------------------------+------+----------+------------------------------+
+| id | select_type | table   | partitions | type   | possible_keys                          | key           | key_len | ref                     | rows | filtered | Extra                        |
++----+-------------+---------+------------+--------+----------------------------------------+---------------+---------+-------------------------+------+----------+------------------------------+
+|  1 | SIMPLE      | Artists | NULL       | ref    | PRIMARY,artistsByTrackId,artistsByName | artistsByName | 1018    | const                   |  154 |   100.00 | Using index; Using temporary |
+|  1 | SIMPLE      | Tracks  | NULL       | eq_ref | PRIMARY                                | PRIMARY       | 122     | testdb.Artists.track_id |    1 |   100.00 | NULL                         |
++----+-------------+---------+------------+--------+----------------------------------------+---------------+---------+-------------------------+------+----------+------------------------------+
+2 rows in set, 1 warning (0.00 sec)
+
++----------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Query_ID | Duration   | Query                                                                                                                                                              |
++----------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|     1509 | 0.00043425 | EXPLAIN SELECT DISTINCT album_name FROM Tracks 
+	INNER JOIN Track_Artists as Artists 
+	ON Tracks.track_id = Artists.track_id 
+WHERE Artists.artist = "Linkin Park" |
+|     1510 | 2.07350225 | CREATE INDEX artistsByName
+ON Track_Artists(artist)                                                                                                                |
+|     1511 | 0.00096050 | EXPLAIN SELECT DISTINCT album_name FROM Tracks 
+	INNER JOIN Track_Artists as Artists 
+	ON Tracks.track_id = Artists.track_id 
+WHERE Artists.artist = "Linkin Park" |
++----------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+3 rows in set, 1 warning (0.00 sec)
+
++-----------------+
+| AVG(popularity) |
++-----------------+
+|         51.2208 |
++-----------------+
+1 row in set (0.36 sec)
+
++-------------+
+| track_genre |
++-------------+
+| grunge      |
+| alternative |
++-------------+
+2 rows in set (0.84 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
++----------+
+| COUNT(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Empty set (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Empty set (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+Query OK, 1 row affected (0.01 sec)
+
++----------------+-------+----------+
+| owner_username | likes | position |
++----------------+-------+----------+
+| testuser1      |     5 |        1 |
+| testuser2      |     4 |        2 |
+| testuser3      |     4 |        2 |
+| testuser4      |     2 |        4 |
+| testuser5      |     1 |        5 |
++----------------+-------+----------+
+5 rows in set (0.00 sec)
+
++------+
+| tier |
++------+
+|    2 |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
++----------------+-------+----------+
+| owner_username | likes | position |
++----------------+-------+----------+
+| testuser1      |     5 |        1 |
+| testuser2      |     5 |        1 |
+| testuser3      |     4 |        3 |
+| testuser4      |     2 |        4 |
+| testuser5      |     1 |        5 |
++----------------+-------+----------+
+5 rows in set (0.00 sec)
+
++------+
+| tier |
++------+
+|    3 |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
++----------------+-------+----------+
+| owner_username | likes | position |
++----------------+-------+----------+
+| testuser1      |     5 |        1 |
+| testuser2      |     4 |        2 |
+| testuser3      |     4 |        2 |
+| testuser4      |     2 |        4 |
+| testuser5      |     1 |        5 |
++----------------+-------+----------+
+5 rows in set (0.00 sec)
+
++------+
+| tier |
++------+
+|    2 |
++------+
+1 row in set (0.00 sec)
+
++------+
+| tier |
++------+
+| NULL |
+|    3 |
+|    2 |
+|    2 |
+|    2 |
+|    2 |
+| NULL |
+| NULL |
++------+
+8 rows in set (0.00 sec)
+

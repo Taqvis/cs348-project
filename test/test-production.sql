@@ -1,5 +1,8 @@
 DELIMITER ;
 
+SET SESSION profiling = 1;
+SET SESSION profiling_history_size = 3;
+
 -- Delete all values in every non-track table
 DELETE FROM Playlist_Tracks;
 DELETE FROM Playlists;
@@ -62,12 +65,31 @@ INSERT INTO Playlist_Tracks VALUES ("testuser2", "Another Playlist", "4GroumsjzA
 
 SELECT * FROM Playlist_Likes WHERE liked_username="testuser";
 
+
 -- Feature 1.i: Search song by track name and artist name
-SELECT * FROM Tracks
+
+-- Remove if first run
+ALTER TABLE Track_Artists
+DROP INDEX artistsByTrackId;
+
+-- b: without index
+EXPLAIN SELECT * FROM Tracks
 	NATURAL JOIN Track_Artists 
-WHERE Tracks.track_name LIKE "%Nevada%" 
-	OR Track_Artists.artist LIKE "%Nevada%"
+WHERE Tracks.track_name LIKE "%a%" 
+	OR Track_Artists.artist LIKE "%a%"
 ORDER BY popularity DESC;
+
+-- c: with index
+CREATE INDEX artistsByTrackId
+ON Track_Artists(track_id);
+
+EXPLAIN SELECT * FROM Tracks
+	NATURAL JOIN Track_Artists 
+WHERE Tracks.track_name LIKE "%a%" 
+	OR Track_Artists.artist LIKE "%a%"
+ORDER BY popularity DESC;
+
+SHOW PROFILES;
 
 -- Feature 1.ii: Search playlist by name
 SELECT * FROM Playlists WHERE playlist_name LIKE "%New Test Playlist%";
@@ -75,20 +97,56 @@ SELECT * FROM Playlists WHERE playlist_name LIKE "%New Test Playlist%";
 -- Feature 4: Song Recommendations
 
 -- 4.ii: Danceability recommendations
-WITH liked_avg AS (
+
+-- b: without index
+EXPLAIN WITH liked_avg AS (
 	SELECT AVG(danceability) AS averageVal FROM Tracks
 	WHERE track_id IN 
 		(SELECT track_id FROM LikedPlaylist 
 		WHERE liked_username = "testuser"))
 SELECT * FROM Tracks, liked_avg 
-WHERE ABS((Tracks.danceability - liked_avg.averageVal)) <= 0.05;
+WHERE ABS((Tracks.danceability - liked_avg.averageVal)) <= 0.05
+LIMIT 10;
+
+-- c: with index
+CREATE INDEX tracksByDanceability
+ON Tracks(danceability);
+
+EXPLAIN WITH liked_avg AS (
+	SELECT AVG(danceability) AS averageVal FROM Tracks
+	WHERE track_id IN 
+		(SELECT track_id FROM LikedPlaylist 
+		WHERE liked_username = "testuser"))
+SELECT * FROM Tracks, liked_avg 
+WHERE ABS((Tracks.danceability - liked_avg.averageVal)) <= 0.05
+LIMIT 10;
+
+SHOW PROFILES;
 
 -- Feature 6: Artist Page
+
+
 -- Feature 6.i: Display list of albums
-SELECT DISTINCT album_name FROM Tracks 
+
+ALTER TABLE Track_Artists
+DROP INDEX artistsByName;
+
+-- b: without index
+EXPLAIN SELECT DISTINCT album_name FROM Tracks 
 	INNER JOIN Track_Artists as Artists 
 	ON Tracks.track_id = Artists.track_id 
 WHERE Artists.artist = "Linkin Park";
+
+-- c: with index
+CREATE INDEX artistsByName
+ON Track_Artists(artist);
+
+EXPLAIN SELECT DISTINCT album_name FROM Tracks 
+	INNER JOIN Track_Artists as Artists 
+	ON Tracks.track_id = Artists.track_id 
+WHERE Artists.artist = "Linkin Park";
+
+SHOW PROFILES;
 
 -- Feature 6.ii: Display average popularity
 SELECT AVG(popularity) 
