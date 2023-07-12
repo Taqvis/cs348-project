@@ -1,97 +1,66 @@
-<<<<<<< HEAD
-import { useState } from "react";
-import axios from "axios";
-import spotifyLogo from "./assets/favicon.png";
-=======
-import { useState } from 'react'
-import reactLogo from './assets/spotify-icon.png'
-import './App.css'
->>>>>>> 9782225 (merge)
+import { BrowserRouter, NavLink, Routes, Route } from "react-router-dom";
+import React from "react";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Search from "./pages/Search";
+import Playlists from "./pages/Playlists";
+// import Test from "./pages/test";
+
+const globalState = {
+  username: null,
+};
+
+const globalStateContext = React.createContext(globalState);
 
 export default function App() {
-
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const [displayedSongs, setDisplayedSongs] = useState(null);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Searching for:", searchQuery);
-    
-    searchSongs(searchQuery, setDisplayedSongs)
-
-    setSearchQuery("");
-  };
-
   return (
-    <div className="space-y-8">
-      <style>
-        {`
-          @keyframes logo-spin {
-            from {
-              transform: rotate(0deg);
-            }
-            to {
-              transform: rotate(360deg);
-            }
-          }
+    <div>
+      <BrowserRouter>
+        <nav class="border-gray-200 dark:bg-gray-900">
+          <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <div class="flex items-center">
+              <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">
+                CS348 Project
+              </span>
+            </div>
 
-          @media (prefers-reduced-motion: no-preference) {
-            .logo {
-              animation: logo-spin infinite 20s linear;
-            }
-          }
-        `}
-      </style>
+            <div className="hidden w-full md:block md:w-auto">
+              <ul class="navbarContainer">
+                <li>
+                  <NavLink className="navbarElement" to="/register">
+                    Register
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink className="navbarElement" to="/login">
+                    Login
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink className="navbarElement" to="/search">
+                    Search
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink className="navbarElement" to="/playlists">
+                    Playlists
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
 
-      <div className="p-6 flex flex-col items-center">
-        <a href="https://open.spotify.com/" target="_blank">
-          <img
-            src={spotifyLogo}
-            className="logo h-24 md:h-26 lg:h-26 xl:h-26"
-            alt="Spotify Logo"
-          />
-        </a>
-        <h1 className="text-center font-semibold text-4xl pt-6">
-          CS348 Project
-        </h1>
-      </div>
-
-      <div className="flex justify-center h-full w-full">
-        <form onSubmit={handleSubmit} className="flex space-x-2">
-          <input
-            type="text"
-            placeholder="Search for a song"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-neutral-600 rounded-2xl px-8 py-4 w-96"
-          />
-          <button
-            type="submit"
-            className="bg-green-600 px-4 py-2 rounded-2xl w-32"
-          >
-            Search
-          </button>
-        </form>
-      </div>
-
-      <div className="flex justify-center h-full w-full bg-neutral-800">
-        <p>
-          {(displayedSongs && displayedSongs.length > 0)? displayedSongs.map((displayedSongs) => (displayedSongs.track_name)) : <p>No songs found</p>}
-        </p>
-      </div>
+          <div>
+            <Routes>
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/playlists" element={<Playlists />} />
+              {/* <Route path="/test" element={<Test />} /> */}
+            </Routes>
+          </div>
+      </BrowserRouter>
     </div>
   );
 }
-
-async function searchSongs(searchQuery, hook) {
-  try {
-    const response = await axios.get(`http://localhost:8080/test/tracks/${searchQuery}`);
-    const songs = response.data;
-    hook(songs);
-    console.log("Songs found:", songs);
-  } catch (error) {
-    console.error("Error occurred while searching:", error);
-  }
-}
-
