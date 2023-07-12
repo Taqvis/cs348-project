@@ -1,17 +1,18 @@
-mysql> source C:\Users\Jesse\Desktop\loo\CS348\test-sample.sql
-Query OK, 0 rows affected (0.00 sec)
+mysql> ^C
+mysql> source C:\Users\Jesse\Desktop\loo\CS348\cs348-project\test\test-sample.sql
+Query OK, 2 rows affected (0.04 sec)
 
-Query OK, 0 rows affected (0.00 sec)
+Query OK, 8 rows affected (0.00 sec)
 
-Query OK, 1 row affected (0.01 sec)
+Query OK, 8 rows affected (0.01 sec)
 
 Query OK, 1 row affected (0.00 sec)
 
-+----------+--------------+----------+
-| username | display_name | password |
-+----------+--------------+----------+
-| testuser | Test User    | testpass |
-+----------+--------------+----------+
++----------+--------------+----------+------+
+| username | display_name | password | tier |
++----------+--------------+----------+------+
+| testuser | Test User    | testpass | NULL |
++----------+--------------+----------+------+
 1 row in set (0.00 sec)
 
 +----------+
@@ -20,21 +21,6 @@ Query OK, 1 row affected (0.00 sec)
 |        1 |
 +----------+
 1 row in set (0.00 sec)
-
-+------------------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+---------------+------------+-------------+
-| track_id               | album_name | track_name | popularity | duration_ms | explicit | danceability      | energy            | music_key | loudness           | mode | speechiness       | acousticness      | instrumentalness  | liveness          | valence           | tempo   | time_signature | track_genre | accousticness | instrument | time_signal |
-+------------------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+---------------+------------+-------------+
-| 02shCNmb6IvgB5jLqKjtkK | Nevada     | Nevada     |         71 |      208561 |        0 | 0.605000019073486 | 0.782999992370606 |         3 | -4.270999908447266 |    1 | 0.032400000840425 | 0.299000000000000 | 0.000175000000000 | 0.133000001311302 | 0.104999996721745 | 124.015 |              4 | edm         |          NULL |       NULL |        NULL |
-+------------------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+---------------+------------+-------------+
-1 row in set (0.00 sec)
-
-+------------------------+------------------+
-| track_id               | artist           |
-+------------------------+------------------+
-| 02shCNmb6IvgB5jLqKjtkK | Cozi Zuehlsdorff |
-| 02shCNmb6IvgB5jLqKjtkK | Vicetone         |
-+------------------------+------------------+
-2 rows in set (0.00 sec)
 
 Query OK, 1 row affected (0.00 sec)
 
@@ -45,7 +31,7 @@ Query OK, 1 row affected (0.00 sec)
 +----------+---------------+
 1 row in set (0.00 sec)
 
-Query OK, 1 row affected (0.01 sec)
+Query OK, 1 row affected (0.00 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 
 +----------+-------------------+
@@ -59,6 +45,15 @@ Query OK, 1 row affected (0.00 sec)
 
 Query OK, 1 row affected (0.00 sec)
 
++------------------------+----------+-------------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+------------------+
+| track_id               | username | playlist_name     | album_name | track_name | popularity | duration_ms | explicit | danceability      | energy            | music_key | loudness           | mode | speechiness       | acousticness      | instrumentalness  | liveness          | valence           | tempo   | time_signature | track_genre | artist           |
++------------------------+----------+-------------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+------------------+
+| 02shCNmb6IvgB5jLqKjtkK | testuser | New Test Playlist | Nevada     | Nevada     |         71 |      208561 |        0 | 0.605000000000000 | 0.783000000000000 |         3 | -4.271000000000000 |    1 | 0.032400000000000 | 0.299000000000000 | 0.000175000000000 | 0.133000000000000 | 0.105000000000000 | 124.015 |              4 | edm         | Cozi Zuehlsdorff |
+| 02shCNmb6IvgB5jLqKjtkK | testuser | New Test Playlist | Nevada     | Nevada     |         71 |      208561 |        0 | 0.605000000000000 | 0.783000000000000 |         3 | -4.271000000000000 |    1 | 0.032400000000000 | 0.299000000000000 | 0.000175000000000 | 0.133000000000000 | 0.105000000000000 | 124.015 |              4 | edm         | Vicetone         |
+| 4GroumsjzAcgCwJzTGY7px | testuser | New Test Playlist | Migration  | Ontario    |         40 |      232549 |        0 | 0.540000000000000 | 0.461000000000000 |        10 | -9.427000000000000 |    0 | 0.034100000000000 | 0.236000000000000 | 0.531000000000000 | 0.086500000000000 | 0.107000000000000 |  89.995 |              4 | trip-hop    | Bonobo           |
++------------------------+----------+-------------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+------------------+
+3 rows in set (0.00 sec)
+
 Query OK, 1 row affected (0.00 sec)
 
 +------------------------+------------+
@@ -68,4 +63,122 @@ Query OK, 1 row affected (0.00 sec)
 +------------------------+------------+
 1 row in set (0.00 sec)
 
-mysql> notee
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+ERROR 1055 (42000): Expression #1 of PARTITION BY or ORDER BY clause of window '<unnamed window>' is not in GROUP BY clause and contains nonaggregated column 'l.likes' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+Empty set (0.00 sec)
+
++------------------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+------------------+
+| track_id               | album_name | track_name | popularity | duration_ms | explicit | danceability      | energy            | music_key | loudness           | mode | speechiness       | acousticness      | instrumentalness  | liveness          | valence           | tempo   | time_signature | track_genre | artist           |
++------------------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+------------------+
+| 02shCNmb6IvgB5jLqKjtkK | Nevada     | Nevada     |         71 |      208561 |        0 | 0.605000000000000 | 0.783000000000000 |         3 | -4.271000000000000 |    1 | 0.032400000000000 | 0.299000000000000 | 0.000175000000000 | 0.133000000000000 | 0.105000000000000 | 124.015 |              4 | edm         | Cozi Zuehlsdorff |
+| 02shCNmb6IvgB5jLqKjtkK | Nevada     | Nevada     |         71 |      208561 |        0 | 0.605000000000000 | 0.783000000000000 |         3 | -4.271000000000000 |    1 | 0.032400000000000 | 0.299000000000000 | 0.000175000000000 | 0.133000000000000 | 0.105000000000000 | 124.015 |              4 | edm         | Vicetone         |
++------------------------+------------+------------+------------+-------------+----------+-------------------+-------------------+-----------+--------------------+------+-------------------+-------------------+-------------------+-------------------+-------------------+---------+----------------+-------------+------------------+
+2 rows in set (0.00 sec)
+
++----------+-------------------+
+| username | playlist_name     |
++----------+-------------------+
+| testuser | New Test Playlist |
++----------+-------------------+
+1 row in set (0.00 sec)
+
+Empty set (0.00 sec)
+
++---------------------+
+| album_name          |
++---------------------+
+| Hybrid Theory       |
+| Waiting for the End |
+| Minutes to Midnight |
++---------------------+
+3 rows in set (0.00 sec)
+
++-----------------+
+| AVG(popularity) |
++-----------------+
+|         41.3333 |
++-----------------+
+1 row in set (0.00 sec)
+
++-------------+
+| track_genre |
++-------------+
+| grunge      |
+| metal       |
++-------------+
+2 rows in set (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Empty set (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Empty set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+Empty set (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+ERROR 1055 (42000): Expression #1 of PARTITION BY or ORDER BY clause of window '<unnamed window>' is not in GROUP BY clause and contains nonaggregated column 'l.likes' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+ERROR 1055 (42000): Expression #1 of PARTITION BY or ORDER BY clause of window '<unnamed window>' is not in GROUP BY clause and contains nonaggregated column 'l.likes' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+ERROR 1055 (42000): Expression #1 of PARTITION BY or ORDER BY clause of window '<unnamed window>' is not in GROUP BY clause and contains nonaggregated column 'l.likes' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+ERROR 1055 (42000): Expression #1 of PARTITION BY or ORDER BY clause of window '<unnamed window>' is not in GROUP BY clause and contains nonaggregated column 'l.likes' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+ERROR 1055 (42000): Expression #1 of PARTITION BY or ORDER BY clause of window '<unnamed window>' is not in GROUP BY clause and contains nonaggregated column 'l.likes' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+ERROR 1055 (42000): Expression #1 of PARTITION BY or ORDER BY clause of window '<unnamed window>' is not in GROUP BY clause and contains nonaggregated column 'l.likes' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
++------+
+| tier |
++------+
+| NULL |
++------+
+1 row in set (0.00 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT * FROM leaderboard LIMIT 10' at line 3
++------+
+| tier |
++------+
+| NULL |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+ERROR 1055 (42000): Expression #1 of PARTITION BY or ORDER BY clause of window '<unnamed window>' is not in GROUP BY clause and contains nonaggregated column 'l.likes' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
++------+
+| tier |
++------+
+| NULL |
++------+
+1 row in set (0.00 sec)
+
