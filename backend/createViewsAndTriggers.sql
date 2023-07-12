@@ -68,3 +68,7 @@ END;
 //
 
 DELIMITER ;
+
+-- Indexes
+CREATE INDEX artistsByName
+ON Track_Artists(artist);
