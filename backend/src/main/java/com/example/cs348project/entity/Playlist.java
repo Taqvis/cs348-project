@@ -27,16 +27,16 @@ public class Playlist {
     @Column(name = "playlist_name")
     private String playlistName;
 
-    @JsonBackReference
+    @JsonBackReference(value = "playlist-owner")
     @ManyToOne
     @JoinColumn(name = "username", referencedColumnName = "username", insertable = false)
     private User owner;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "playlist-track-connector")
     @OneToMany(mappedBy = "playlist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PlaylistTrack> tracks;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "playlist-like")
     @OneToMany(mappedBy = "playlist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PlaylistLike> likes;
 

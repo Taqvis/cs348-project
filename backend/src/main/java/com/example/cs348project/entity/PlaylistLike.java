@@ -25,12 +25,12 @@ public class PlaylistLike {
     @Column(name = "liked_username")
     private String likedUsername;
 
-    @JsonBackReference
+    @JsonBackReference(value = "liked-user")
     @ManyToOne
     @JoinColumn(name = "liked_username", referencedColumnName = "username", insertable = false)
     private User user;
 
-    @JsonBackReference
+    @JsonBackReference(value = "playlist-like")
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "owner_username", referencedColumnName = "username", insertable = false),

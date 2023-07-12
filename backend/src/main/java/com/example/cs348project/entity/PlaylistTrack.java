@@ -26,12 +26,12 @@ public class PlaylistTrack {
     @Column(name = "track_id")
     private String trackId;
 
-    @JsonBackReference
+    @JsonBackReference(value = "playlist-track")
     @ManyToOne
     @JoinColumn(name = "track_id", referencedColumnName = "track_id", insertable = false)
     private Track track;
 
-    @JsonBackReference
+    @JsonBackReference(value = "playlist-track-connector")
     @ManyToOne
     @JoinColumns({
         @JoinColumn(name = "username", referencedColumnName = "username", insertable = false),

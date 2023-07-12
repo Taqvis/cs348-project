@@ -26,11 +26,11 @@ public class User {
     @Column(name = "tier", columnDefinition = "INT")
     private int tier;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "playlist-owner")
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Playlist> ownedPlaylists;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "liked-user")
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PlaylistLike> likedPlaylists;
 
