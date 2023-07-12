@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS Playlist_Tracks (
     track_id VARCHAR(30) NOT NULL, 
     PRIMARY KEY (username, playlist_name, track_id),
     FOREIGN KEY (username) REFERENCES Users(username) ON DELETE CASCADE,
-	FOREIGN KEY (username, playlist_name) REFERENCES Playlists(username, playlist_name) ON DELETE CASCADE,
+	FOREIGN KEY (username, playlist_name) REFERENCES Playlists(username, playlist_name) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (track_id) REFERENCES Tracks(track_id) ON DELETE CASCADE
 );
 
@@ -59,6 +59,6 @@ CREATE TABLE IF NOT EXISTS Playlist_Likes (
     liked_username VARCHAR(36) NOT NULL,
     PRIMARY KEY (owner_username, playlist_name, liked_username),
     FOREIGN KEY (owner_username) REFERENCES Users(username) ON DELETE CASCADE,
-	FOREIGN KEY (owner_username, playlist_name) REFERENCES Playlists(username, playlist_name) ON DELETE CASCADE,
+	FOREIGN KEY (owner_username, playlist_name) REFERENCES Playlists(username, playlist_name) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (liked_username) REFERENCES Users(username) ON DELETE CASCADE
 );

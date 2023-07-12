@@ -8,6 +8,12 @@ random.seed("cs348")
 # read the prod dataset
 prodDf = pd.read_csv("./dataset.csv", index_col=0)
 
+# remove duplicates (cleanup)
+prodDf = prodDf.drop_duplicates(subset=["track_id"])
+
+# truncate track names that are too long
+prodDf["track_name"] = prodDf["track_name"].str.slice(stop=254)
+
 # split artists into lists
 prodDf = prodDf.assign(**{"artists": prodDf["artists"].str.split(';')})
 
