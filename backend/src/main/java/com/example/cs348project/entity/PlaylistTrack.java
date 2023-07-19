@@ -1,6 +1,7 @@
 package com.example.cs348project.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,7 @@ public class PlaylistTrack {
     @Column(name = "track_id")
     private String trackId;
 
-    @JsonBackReference
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "track_id", referencedColumnName = "track_id", insertable = false)
     private Track track;
