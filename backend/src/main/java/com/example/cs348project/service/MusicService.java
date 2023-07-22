@@ -49,6 +49,22 @@ public class MusicService {
         return trackArtistRepository.findAll();
     }
 
+    public List<String> getAlbumsByArtist(final String name) {
+        return trackArtistRepository.getAlbumsByArtist(name);
+    }
+
+    public Float getAveragePopularityByArtist(final String name) {
+        return trackArtistRepository.getAveragePopularityByArtist(name);
+    }
+
+    public List<String> getMostPopularGenreByArtist(final String name) {
+        return trackArtistRepository.getMostPopGenres(name);
+    }
+
+    public Integer getTotalLikesByArtist(final String name) {
+        return trackArtistRepository.getTotalLikesByArtist(name);
+    }
+
     public List<Playlist> findPlaylistByOwnerAndPlaylistName(String username, String playlistName) {
         return playlistRepository.findPlaylistByOwnerAndPlaylistName(username, playlistName);
     }

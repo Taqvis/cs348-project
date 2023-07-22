@@ -36,6 +36,26 @@ public class MusicController {
         return musicService.findArtistsByName(name);
     }
 
+    @GetMapping(path = "/artist/{name}/albums", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<String> getAlbumByName(@PathVariable final String name) {
+        return musicService.getAlbumsByArtist(name);
+    }
+
+    @GetMapping(path = "/artist/{name}/popularity", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Float getAveragePopularityByArtist(@PathVariable final String name) {
+        return musicService.getAveragePopularityByArtist(name);
+    }
+
+    @GetMapping(path = "/artist/{name}/genres", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<String> getMostPopularGenreByArtist(@PathVariable final String name) {
+        return musicService.getMostPopularGenreByArtist(name);
+    }
+
+    @GetMapping(path = "/artist/{name}/totalLikes", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Integer getTotalLikesByArtist(@PathVariable final String name) {
+        return musicService.getTotalLikesByArtist(name) == null ? 0 : musicService.getTotalLikesByArtist(name);
+    }
+
     @GetMapping(path = "/playlist/{username}/{playlistName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Playlist> findPlaylistByOwnerAndPlaylistName(@PathVariable String username, @PathVariable String playlistName) {
         return musicService.findPlaylistByOwnerAndPlaylistName(username, playlistName);
