@@ -16,16 +16,16 @@ export default function App() {
   return (
     <div>
       <BrowserRouter>
-        <nav class="border-gray-200 dark:bg-gray-900">
-          <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <div class="flex items-center">
-              <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">
+        <nav className="border-gray-200 dark:bg-gray-900">
+          <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <div className="flex items-center">
+              <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
                 CS348 Project
               </span>
             </div>
 
             <div className="hidden w-full md:block md:w-auto">
-              <ul class="navbarContainer">
+              <ul className="navbarContainer">
                 <li>
                   <NavLink className="navbarElement" to="/register">
                     Register

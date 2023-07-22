@@ -38,43 +38,43 @@ const Register = () => {
   };
 
   return (
-    <div class="bg-slate-600 h-screen px-10 py-10 w-full">
-      <div class="w-full max-w-xl mx-auto">
+    <div className="bg-slate-600 h-screen px-10 py-10 w-full">
+      <div className="w-full max-w-xl mx-auto">
         <form
-          class="LgnForm max-w-sm mx-auto shadow-2xl bg-white rounded-lg pt-6 pb-8 mb-4 px-8"
+          className="LgnForm max-w-sm mx-auto shadow-2xl bg-white rounded-lg pt-6 pb-8 mb-4 px-8"
           onSubmit={submitHandler}
         >
-          <div class="MskForm">
-            <div class="mb-4">
-              <label class="block text-gray-700 text-sm font-bold mb-2">
+          <div className="MskForm">
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
                 Name
               </label>
               <input
-                class="login-register-textBox focus:outline-none focus:shadow-outline apperance-none"
+                className="login-register-textBox focus:outline-none focus:shadow-outline apperance-none"
                 type="text"
                 placeholder="Name"
                 value={name}
                 onChange={(event) => setName(event.target.value)}
               />
             </div>
-            <div class="mb-4">
-              <label class="block text-gray-700 text-sm font-bold mb-2">
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
                 Username
               </label>
               <input
-                class="login-register-textBox focus:outline-none focus:shadow-outline apperance-none"
+                className="login-register-textBox focus:outline-none focus:shadow-outline apperance-none"
                 type="text"
                 placeholder="Username"
                 value={username}
                 onChange={(event) => setUsername(event.target.value)}
               />
             </div>
-            <div class="mb-6">
-              <label class="block text-gray-700 text-sm font-bold mb-2">
+            <div className="mb-6">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
                 Password
               </label>
               <input
-                class="login-register-textBox focus:outline-none focus:shadow-outline apperance-none"
+                className="login-register-textBox focus:outline-none focus:shadow-outline apperance-none"
                 type="password"
                 placeholder="******************"
                 value={password}
@@ -82,12 +82,12 @@ const Register = () => {
               />
             </div>
 
-            {errorMessage && <h5 class="text-red-600">{errorMessage}</h5>}
+            {errorMessage && <h5 className="text-red-600">{errorMessage}</h5>}
 
-            <div class="flex items-center justify-between">
+            <div className="flex items-center justify-between">
               <input
                 type="submit"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 value={"Create Account"}
               ></input>
             </div>

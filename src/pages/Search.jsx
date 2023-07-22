@@ -32,30 +32,30 @@ function Search({ username }) {
 
   };
   return (
-    <div class="bg-slate-600 h-screen px-10 py-10 w-full">
-      <form class="flex justify-center" onSubmit={handleSubmit}>
-        <div class="w-1/2">
-          <div class="flex space-x-4">
-            <div class="flex rounded-2xl overflow-hidden w-full">
+    <div className="bg-slate-600 h-screen px-10 py-10 w-full">
+      <form className="flex justify-center" onSubmit={handleSubmit}>
+        <div className="w-1/2">
+          <div className="flex space-x-4">
+            <div className="flex rounded-2xl overflow-hidden w-full">
               <input
                 type="text"
-                class="w-full text-black rounded-md rounded-r-none px-4"
+                className="w-full text-black rounded-md rounded-r-none px-4"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <button class="bg-blue-500 hover:bg-blue-700 text-black px-6 text-lg font-semibold py-4 rounded-r-md">
+              <button className="bg-blue-500 hover:bg-blue-700 text-black px-6 text-lg font-semibold py-4 rounded-r-md">
                 Go
               </button>
             </div>
           </div>
-          <div class="flex space-x-1 items-center mb-2">
-            <p class="text-black text-lg font-semibold">
+          <div className="flex space-x-1 items-center mb-2">
+            <p className="text-black text-lg font-semibold">
               Please enter something
             </p>
           </div>
         </div>
       </form>
-      <div class="flex justify-center flex-col">
+      <div className="flex justify-center flex-col">
         {displayedSongs ? (
           <div className="justify-center space-y-2">
             {displayedSongs ? (
@@ -87,11 +87,11 @@ function Search({ username }) {
                 );
               })
             ) : (
-              <h1 class="text-black">No Playlists Found</h1>
+              <h1 className="text-black">No Playlists Found</h1>
             )}
           </div>
         ) : (
-          <h1 class="text-black">No Songs Found</h1>
+          <h1 className="text-black">No Songs Found</h1>
         )}
       </div>
     </div>

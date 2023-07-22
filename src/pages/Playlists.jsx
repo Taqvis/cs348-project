@@ -98,7 +98,7 @@ function Playlists({ username }) {
         />
       )}
 
-      <div class="bg-slate-600 h-screen px-10 py-10 w-full flex flex-row">
+      <div className="bg-slate-600 h-screen px-10 py-10 w-full flex flex-row">
         <div className="flex flex-col w-1/4 min-h-full">
           {currentPlaylist ? (
             <div
@@ -167,18 +167,18 @@ function Playlists({ username }) {
               })
             ) : (
               <>
-                <form class="justify-center" onSubmit={handleSearch}>
-                  <div class="w-full">
-                    <div class="flex space-x-4">
-                      <div class="flex rounded-2xl overflow-hidden w-full">
+                <form className="justify-center" onSubmit={handleSearch}>
+                  <div className="w-full">
+                    <div className="flex space-x-4">
+                      <div className="flex rounded-2xl overflow-hidden w-full">
                         <input
                           type="text"
-                          class="w-full text-black rounded-md rounded-r-none px-4"
+                          className="w-full text-black rounded-md rounded-r-none px-4"
                           placeholder="Search for a playlist"
                           onChange={(e) => setSearchQuery(e.target.value)}
                           value={searchQuery}
                         />
-                        <button class="bg-blue-500 hover:bg-blue-700 text-black px-6 text-lg font-semibold py-4 rounded-r-md">
+                        <button className="bg-blue-500 hover:bg-blue-700 text-black px-6 text-lg font-semibold py-4 rounded-r-md">
                           Go
                         </button>
                       </div>
@@ -210,7 +210,7 @@ function Playlists({ username }) {
                       );
                     })
                   ) : (
-                    <h1 class="text-black">No Playlists Found</h1>
+                    <h1 className="text-black">No Playlists Found</h1>
                   )}
                 </div>
               </>
