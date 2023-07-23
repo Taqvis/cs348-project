@@ -4,10 +4,12 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Search from "./pages/Search";
 import Playlists from "./pages/Playlists";
+import Artists from "./pages/Artists"
 // import Test from "./pages/test";
 
 const globalState = {
   username: null,
+  artist: null,
 };
 
 const globalStateContext = React.createContext(globalState);
@@ -46,6 +48,11 @@ export default function App() {
                     Playlists
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink className="navbarElement" to="/artists">
+                    Artists
+                  </NavLink>
+                </li>
               </ul>
             </div>
           </div>
@@ -57,6 +64,7 @@ export default function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/search" element={<Search />} />
               <Route path="/playlists" element={<Playlists />} />
+              <Route path="/artists" element={<Artists />} />
               {/* <Route path="/test" element={<Test />} /> */}
             </Routes>
           </div>
