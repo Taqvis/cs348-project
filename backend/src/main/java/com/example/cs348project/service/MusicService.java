@@ -25,9 +25,6 @@ public class MusicService {
 
     @Autowired
     private PlaylistLikeRepository playlistLikeRepository;
-
-    @Autowired
-    private UserRepository userRepository;
     
     public List<Track> getAllTracks() {
         return trackRepository.findAll();
@@ -79,6 +76,11 @@ public class MusicService {
 
     public void removePlaylistLike(String ownerName, String playlistName, String username) {
         playlistLikeRepository.deleteById(new PlaylistLikeID(ownerName, playlistName, username));
+    }
+
+    public List<Track> getRecommendations(String userId) {
+        List<String> recommendedTrackIDs = trackRepository.getRecommendations(userId);
+        return trackRepository.findAllById(recommendedTrackIDs);
     }
 
 }

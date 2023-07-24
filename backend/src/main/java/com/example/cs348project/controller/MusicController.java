@@ -80,4 +80,9 @@ public class MusicController {
         musicService.removePlaylistLike(ownerName, playlistName, username);
     }
 
+    @GetMapping(path = "/recommend/{userId}")
+    public List<Track> getRecommendations(@PathVariable(name = "userId") String userId) {
+        return musicService.getRecommendations(userId);
+    }
+
 }

@@ -20,7 +20,7 @@ public class User {
     @Column(name = "display_name", columnDefinition = "VARCHAR(36)", nullable = false)
     private String displayName;
 
-    @Column(name = "password", columnDefinition = "VARCHAR(20)", nullable = false)
+    @Column(name = "password", columnDefinition = "VARCHAR(60)", nullable = false)
     private String password;
 
     @Column(name = "tier", columnDefinition = "INT")
