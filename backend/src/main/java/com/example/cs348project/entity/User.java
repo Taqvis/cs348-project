@@ -24,7 +24,7 @@ public class User {
     private String password;
 
     @Column(name = "tier", columnDefinition = "INT")
-    private int tier;
+    private Integer tier;
 
     @JsonManagedReference(value = "playlist-owner")
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

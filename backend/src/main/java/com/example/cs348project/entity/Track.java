@@ -1,5 +1,6 @@
 package com.example.cs348project.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -19,11 +20,11 @@ public class Track {
   @Column(name = "track_id", columnDefinition = "VARCHAR(30)", nullable = false)
   public String trackId;
 
-  @JsonManagedReference(value = "artist-track")
+  @JsonManagedReference
   @OneToMany(mappedBy = "track", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   public List<TrackArtist> artists;
 
-  @JsonManagedReference(value = "playlist-track")
+  @JsonBackReference
   @OneToMany(mappedBy = "track", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   public List<PlaylistTrack> playlistTracks;
 

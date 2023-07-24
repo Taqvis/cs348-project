@@ -31,7 +31,11 @@ public class MusicService {
     }
 
     public List<Track> findTrackByName(final String name) {
-        return trackRepository.findByName(name);
+        List<Track> tracks = trackRepository.findByName(name);
+        List<TrackArtist> artists = findArtistsByName(name);
+        artists.forEach(artist -> tracks.add(artist.track));
+
+        return tracks;
     }
 
     public List<TrackArtist> findArtistsByName(final String name) {
@@ -40,6 +44,22 @@ public class MusicService {
 
     public List<TrackArtist> getAllArtists() {
         return trackArtistRepository.findAll();
+    }
+
+    public List<String> getAlbumsByArtist(final String name) {
+        return trackArtistRepository.getAlbumsByArtist(name);
+    }
+
+    public Float getAveragePopularityByArtist(final String name) {
+        return trackArtistRepository.getAveragePopularityByArtist(name);
+    }
+
+    public List<String> getMostPopularGenreByArtist(final String name) {
+        return trackArtistRepository.getMostPopGenres(name);
+    }
+
+    public Integer getTotalLikesByArtist(final String name) {
+        return trackArtistRepository.getTotalLikesByArtist(name);
     }
 
     public List<Playlist> findPlaylistByOwnerAndPlaylistName(String username, String playlistName) {
