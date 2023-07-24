@@ -25,9 +25,6 @@ public class MusicService {
 
     @Autowired
     private PlaylistLikeRepository playlistLikeRepository;
-
-    @Autowired
-    private UserRepository userRepository;
     
     public List<Track> getAllTracks() {
         return trackRepository.findAll();
