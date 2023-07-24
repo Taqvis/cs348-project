@@ -20,6 +20,10 @@ public class UserService {
             throw new Exception("Username already used");
         }
 
+        if (user.getPassword().length() < 8) {
+            throw new Exception("Password needs to be at least 8 characters long");
+        }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         return userRepository.save(user);

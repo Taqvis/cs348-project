@@ -1,7 +1,6 @@
 package com.example.cs348project.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,12 +26,11 @@ public class PlaylistTrack {
     @Column(name = "track_id")
     private String trackId;
 
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "track_id", referencedColumnName = "track_id", insertable = false)
     private Track track;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne
     @JoinColumns({
         @JoinColumn(name = "username", referencedColumnName = "username", insertable = false),

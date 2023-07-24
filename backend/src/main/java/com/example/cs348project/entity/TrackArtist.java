@@ -1,6 +1,6 @@
 package com.example.cs348project.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +20,7 @@ public class TrackArtist {
 	@Column(name = "artist", columnDefinition = "VARCHAR(254)")
     public String artist;
 
-    @JsonBackReference(value = "artist-track")
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "track_id", referencedColumnName = "track_id", insertable = false)
     public Track track;

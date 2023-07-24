@@ -1,6 +1,5 @@
 package com.example.cs348project.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,11 +25,9 @@ public class User {
     @Column(name = "tier", columnDefinition = "INT")
     private Integer tier;
 
-    @JsonManagedReference(value = "playlist-owner")
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Playlist> ownedPlaylists;
 
-    @JsonManagedReference(value = "liked-user")
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PlaylistLike> likedPlaylists;
 

@@ -1,7 +1,6 @@
 package com.example.cs348project.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -19,14 +18,6 @@ public class Track {
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "track_id", columnDefinition = "VARCHAR(30)", nullable = false)
   public String trackId;
-
-  @JsonManagedReference
-  @OneToMany(mappedBy = "track", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  public List<TrackArtist> artists;
-
-  @JsonBackReference
-  @OneToMany(mappedBy = "track", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  public List<PlaylistTrack> playlistTracks;
 
   @Column(name = "album_name", columnDefinition = "VARCHAR(254)", nullable = false)
   public String albumName;
@@ -81,4 +72,11 @@ public class Track {
 
   @Column(name = "track_genre", columnDefinition = "VARCHAR(30)")
   public String trackGenre;
+
+  @OneToMany(mappedBy = "track", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  public List<TrackArtist> artists;
+
+  @JsonIgnore
+  @OneToMany(mappedBy = "track", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  public List<PlaylistTrack> playlistTracks;
 }
