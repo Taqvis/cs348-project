@@ -34,7 +34,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("*"));
         configuration.setAllowedMethods(List.of("GET", "POST", "DELETE"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Requestor-Type"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Requestor-Type", "Content-Type", "Access-Control-Allow-Origin", "Access-Control-Allow-Headers", "X-Requested-With"));
         configuration.setExposedHeaders(List.of("X-Get-Header"));
         org.springframework.web.cors.UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
