@@ -14,7 +14,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.cors.reactive.CorsWebFilter;
 
 import java.util.List;
 
@@ -37,7 +36,7 @@ public class SecurityConfig {
         configuration.setAllowedMethods(List.of("GET", "POST", "DELETE"));
         configuration.setAllowedHeaders(List.of("Authorization", "Requestor-Type"));
         configuration.setAllowedHeaders(List.of("X-Get-Header"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        org.springframework.web.cors.UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
@@ -45,7 +44,7 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .cors(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/register").permitAll()
