@@ -7,10 +7,7 @@ function Search({ username, password }) {
   const [displayedSongs, setDisplayedSongs] = useState(null);
   const [displayedPlaylists, setDisplayedPlaylists] = useState(null);
 
-  const auth = {
-    username: username,
-    password: password,
-  };
+  const auth = 'Basic ' + btoa(username + ':' + password);
 
   // get the users playlists
   useEffect(() => {
