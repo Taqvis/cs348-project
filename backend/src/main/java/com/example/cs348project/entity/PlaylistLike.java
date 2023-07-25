@@ -1,6 +1,6 @@
 package com.example.cs348project.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,12 +25,12 @@ public class PlaylistLike {
     @Column(name = "liked_username")
     private String likedUsername;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "liked_username", referencedColumnName = "username", insertable = false)
     private User user;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "owner_username", referencedColumnName = "username", insertable = false),

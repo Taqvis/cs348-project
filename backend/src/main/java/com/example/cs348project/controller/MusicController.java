@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
 public class MusicController {
 
     @Autowired
@@ -99,6 +98,11 @@ public class MusicController {
     @DeleteMapping(path = "/like/{ownerName}/{playlistName}/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void removePlaylistLike(@PathVariable String ownerName, @PathVariable String playlistName, @PathVariable String username) {
         musicService.removePlaylistLike(ownerName, playlistName, username);
+    }
+
+    @GetMapping(path = "/recommend/{userId}")
+    public List<Track> getRecommendations(@PathVariable(name = "userId") String userId) {
+        return musicService.getRecommendations(userId);
     }
 
 }

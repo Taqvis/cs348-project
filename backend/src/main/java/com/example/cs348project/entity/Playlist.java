@@ -1,7 +1,6 @@
 package com.example.cs348project.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,16 +26,14 @@ public class Playlist {
     @Column(name = "playlist_name")
     private String playlistName;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "username", referencedColumnName = "username", insertable = false)
     private User owner;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "playlist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PlaylistTrack> tracks;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "playlist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PlaylistLike> likes;
 
