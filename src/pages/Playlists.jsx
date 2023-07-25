@@ -3,7 +3,7 @@ import axios from "axios";
 import PlaylistPopup from "../components/PlaylistPopup";
 import { connect } from "react-redux";
 
-function Playlists({ username }) {
+function Playlists({ username, password }) {
   const [showPlaylistPopup, setShowPlaylistPopup] = useState(false);
   const [showRenamePopup, setShowRenamePopup] = useState(false);
 
@@ -13,20 +13,22 @@ function Playlists({ username }) {
   const [playlists, setPlaylists] = useState(null);
   const [foundPlaylists, setFoundPlaylists] = useState(null);
 
+  const auth = "Basic " + btoa(username + ":" + password);
+
   useEffect(() => {
     if (!username) {
       console.log("No username provided");
       return;
     } else {
-      getPlaylists(username, setPlaylists);
+      getPlaylists(auth, username, setPlaylists);
       console.log("Playlists:", playlists);
     }
-  }, [username, showPlaylistPopup]);
+  }, [username, password, showPlaylistPopup]);
 
   const handleSearch = (e) => {
     e.preventDefault();
     console.log("Searching for:", searchQuery);
-    searchPlaylist(searchQuery, setFoundPlaylists);
+    searchPlaylist(auth, searchQuery, setFoundPlaylists);
   };
 
   const handlePlaylistClick = (e, playlist) => {
@@ -34,7 +36,7 @@ function Playlists({ username }) {
     console.log(e.target.innerHTML);
 
     if (e.target.innerHTML === "Delete") {
-      deletePlaylist(playlist.username, playlist.playlistName);
+      deletePlaylist(auth, playlist.username, playlist.playlistName);
     } else if (e.target.innerHTML === "Rename") {
       // renamePlaylist(playlist.username, playlist.playlistName);
       setShowRenamePopup(true);
@@ -52,6 +54,7 @@ function Playlists({ username }) {
   const handleRemoveItemFromPlaylist = (e, item) => {
     console.log("Delete clicked:", item);
     removeSongFromPlaylist(
+      auth,
       username,
       currentPlaylist.playlistName,
       item.trackId
@@ -59,26 +62,26 @@ function Playlists({ username }) {
   };
 
   const handleLikePlaylist = (e, playlist) => {
-    likePlaylist(username, playlist.username, playlist.playlistName);
+    likePlaylist(auth, username, playlist.username, playlist.playlistName);
   };
 
   const handleUnlikePlaylist = (e, playlist) => {
-    unlikePlaylist(username, playlist.username, playlist.playlistName);
+    unlikePlaylist(auth, username, playlist.username, playlist.playlistName);
   };
 
   const handleCreatePlaylist = async (playlistName) => {
     console.log("Creating Playlist:", playlistName);
 
-    createPlaylist(username, playlistName);
+    createPlaylist(auth, username, playlistName);
   };
 
   function hasLikedUsername(playlistData) {
     if (playlistData.likes) {
-      return playlistData.likes.some(like => like.likedUsername === username);
+      return playlistData.likes.some((like) => like.likedUsername === username);
     }
     return false;
   }
-  
+
   return (
     <>
       {showPlaylistPopup && (
@@ -222,10 +225,15 @@ function Playlists({ username }) {
   );
 }
 
-async function searchPlaylist(searchQuery, hook) {
+async function searchPlaylist(auth, searchQuery, hook) {
   try {
     const response = await axios.get(
-      `http://localhost:8080/playlist/${searchQuery}`
+      `http://localhost:8080/playlist/${searchQuery}`,
+      {
+        headers: {
+          Authorization: auth,
+        },
+      }
     );
     hook(response.data);
     console.log("response:", response);
@@ -234,10 +242,15 @@ async function searchPlaylist(searchQuery, hook) {
   }
 }
 
-async function createPlaylist(username, playlistName) {
+async function createPlaylist(auth, username, playlistName) {
   try {
     const response = await axios.post(
-      `http://localhost:8080/playlist/${username}/${playlistName}`
+      `http://localhost:8080/playlist/${username}/${playlistName}`,
+      {
+        headers: {
+          Authorization: auth,
+        },
+      }
     );
     console.log("response:", response);
   } catch (error) {
@@ -246,10 +259,15 @@ async function createPlaylist(username, playlistName) {
 }
 
 // get all playlists of user
-async function getPlaylists(username, hook) {
+async function getPlaylists(auth, username, hook) {
   try {
     const response = await axios.get(
-      `http://localhost:8080/user/playlist/${username}`
+      `http://localhost:8080/user/playlist/${username}`,
+      {
+        headers: {
+          Authorization: auth,
+        },
+      }
     );
     console.log("response:", response);
     hook(response.data);
@@ -258,10 +276,15 @@ async function getPlaylists(username, hook) {
   }
 }
 
-async function deletePlaylist(username, playlistName) {
+async function deletePlaylist(auth, username, playlistName) {
   try {
     const response = await axios.delete(
-      `http://localhost:8080/playlist/${username}/${playlistName}`
+      `http://localhost:8080/playlist/${username}/${playlistName}`,
+      {
+        headers: {
+          Authorization: auth,
+        },
+      }
     );
     console.log("response:", response);
   } catch (error) {
@@ -269,10 +292,15 @@ async function deletePlaylist(username, playlistName) {
   }
 }
 
-async function removeSongFromPlaylist(username, playlistName, trackId) {
+async function removeSongFromPlaylist(auth, username, playlistName, trackId) {
   try {
     const response = await axios.delete(
-      `http://localhost:8080/playlist/${username}/${playlistName}/${trackId}`
+      `http://localhost:8080/playlist/${username}/${playlistName}/${trackId}`,
+      {
+        headers: {
+          Authorization: auth,
+        },
+      }
     );
     console.log("response:", response);
   } catch (error) {
@@ -280,10 +308,15 @@ async function removeSongFromPlaylist(username, playlistName, trackId) {
   }
 }
 
-async function likePlaylist(username, ownerName, playlistName) {
+async function likePlaylist(auth, username, ownerName, playlistName) {
   try {
     const response = await axios.post(
-      `http://localhost:8080/like/${ownerName}/${playlistName}/${username}`
+      `http://localhost:8080/like/${ownerName}/${playlistName}/${username}`,
+      {
+        headers: {
+          Authorization: auth,
+        },
+      }
     );
     console.log("response:", response);
   } catch (error) {
@@ -291,10 +324,15 @@ async function likePlaylist(username, ownerName, playlistName) {
   }
 }
 
-async function unlikePlaylist(username, ownerName, playlistName) {
+async function unlikePlaylist(auth, username, ownerName, playlistName) {
   try {
     const response = await axios.delete(
-      `http://localhost:8080/like/${ownerName}/${playlistName}/${username}`
+      `http://localhost:8080/like/${ownerName}/${playlistName}/${username}`,
+      {
+        headers: {
+          Authorization: auth,
+        },
+      }
     );
     console.log("response:", response);
   } catch (error) {
@@ -304,6 +342,7 @@ async function unlikePlaylist(username, ownerName, playlistName) {
 
 const mapStateToProps = (state) => ({
   username: state.username,
+  password: state.password,
 });
 
 export default connect(mapStateToProps)(Playlists);

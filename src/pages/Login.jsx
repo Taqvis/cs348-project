@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
-import { setUsername } from "../redux/actions";
+import { setUsername, setPassword } from "../redux/actions";
 
 const Login = (props) => {
   const navigate = useNavigate();
@@ -22,11 +22,17 @@ const Login = (props) => {
       return;
     }
     axios
-      .get("http://localhost:8080/test/login/" + username + "/" + password)
+      .get("http://localhost:8080/tracks", {
+        headers: {
+          Authorization: "Basic " + btoa(username + ":" + password),
+        },
+      })
       .then((response) => {
         console.log(response);
-        if (response.data === 'success' && response.status === 200) {
+        if (response.status === 200) {
           props.setUsername(username);
+          props.setPassword(password);
+
           navigate("/playlists");
         }
       })
@@ -92,10 +98,12 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => ({
   username: state.username,
+  password: state.password,
 });
 
 const mapDispatchToProps = {
   setUsername,
+  setPassword,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

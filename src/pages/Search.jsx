@@ -2,21 +2,26 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 
-function Search({ username }) {
+function Search({ username, password }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [displayedSongs, setDisplayedSongs] = useState(null);
   const [displayedPlaylists, setDisplayedPlaylists] = useState(null);
 
+  const auth = {
+    username: username,
+    password: password,
+  };
+
   // get the users playlists
   useEffect(() => {
-    getPlaylists(username, setDisplayedPlaylists);
+    getPlaylists(auth, username, setDisplayedPlaylists);
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Searching for:", searchQuery);
 
-    searchSongs(searchQuery, setDisplayedSongs);
+    searchSongs(auth, searchQuery, setDisplayedSongs);
 
     setSearchQuery("");
   };
@@ -27,7 +32,7 @@ function Search({ username }) {
     } else {
       console.log("Adding to playlist:", song);
       console.log("Playlist:", playlist);
-      addSongToPlaylist(username, playlist, song.trackId);
+      addSongToPlaylist(auth, username, playlist, song.trackId);
     }
 
   };
@@ -98,7 +103,7 @@ function Search({ username }) {
   );
 }
 
-async function searchSongs(searchQuery, hook) {
+async function searchSongs(auth, searchQuery, hook) {
   console.log("Searching for:", searchQuery);
   // GET /tracks/{name} - get tracks by name
   if (!searchQuery) {
@@ -107,7 +112,12 @@ async function searchSongs(searchQuery, hook) {
   } else {
     try {
       const tracks = await axios.get(
-        `http://localhost:8080/tracks/${searchQuery}`
+        `http://localhost:8080/tracks/${searchQuery}`,
+        {
+          headers: {
+            Authorization: auth,
+          },
+        }
       );
       hook(tracks.data);
       console.log("Songs found:", tracks.data);
@@ -117,10 +127,15 @@ async function searchSongs(searchQuery, hook) {
   }
 }
 
-async function getPlaylists(username, hook) {
+async function getPlaylists(auth, username, hook) {
   try {
     const response = await axios.get(
-      `http://localhost:8080/user/playlist/${username}`
+      `http://localhost:8080/user/playlist/${username}`,
+      {
+        headers: {
+          Authorization: auth,
+        },
+      }
     );
     console.log("response:", response);
     hook(response.data);
@@ -129,10 +144,15 @@ async function getPlaylists(username, hook) {
   }
 }
 
-async function addSongToPlaylist(username, playlistName, trackName) {
+async function addSongToPlaylist(auth, username, playlistName, trackName) {
   try {
     const response = await axios.post(
-      `http://localhost:8080/playlist/${username}/${playlistName}/${trackName}`
+      `http://localhost:8080/playlist/${username}/${playlistName}/${trackName}`,
+      {
+        headers: {
+          Authorization: auth,
+        },
+      }
     );
     console.log("response:", response);
   } catch (error) {
