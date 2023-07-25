@@ -1,7 +1,10 @@
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [name, setName] = React.useState("");
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -20,14 +23,11 @@ const Register = () => {
     }
 
     axios
-      .post(
-        "http://localhost:8080/user/create?username=" +
-          username +
-          "&displayName=" +
-          name +
-          "&password=" +
-          password
-      )
+      .post("http://localhost:8080/register", {
+        username: name,
+        displayName: username,
+        password: password,
+      })
       .then((response) => {
         console.log(response);
         navigate("/login");

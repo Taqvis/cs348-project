@@ -2,20 +2,25 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 
-function Artists({ artist }) {
+function Artists({ artist, username, password }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [allArtists, setAllArtists] = useState(null);
   const [searchedArtist, setSearchedArtist] = useState([]);
 
+  const auth = {
+    username: username,
+    password: password,
+  };
+
   // get the users playlists
   useEffect(() => {
-    getAllArtists(setAllArtists);
+    getAllArtists(auth, setAllArtists);
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Searching for:", searchQuery);
-    searchArtists(searchQuery, setSearchedArtist, setAllArtists);
+    searchArtists(auth, searchQuery, setSearchedArtist, setAllArtists);
     setSearchQuery("");
   };
 
@@ -44,86 +49,118 @@ function Artists({ artist }) {
         </div>
       </form>
       <div className="flex justify-center flex-col space-y-2">
-        {searchedArtist.length ? 
-            searchedArtist.map((artist, idx) => (
-                <div key={idx}  className="flex flex-col text-black text-lg p-3 bg-slate-500 rounded-lg">
-                    <div>Name: {artist.name}</div>
-                    <div>Albumns: {artist.albums.join(", ")}</div>
-                    <div>Average Popularity: {artist.avgPop}</div>
-                    <div>Like Counts: {artist.likeCount}</div>
-                    <div>Most Pop Genres: {artist.mostPopGenres.join(", ")}</div>
-                </div>
-            )) : (
-            allArtists ? 
-            (
-                allArtists.map((artist, idx) => {
-                    return (
-                        <div key={idx} className="flex flex-row text-black text-lg p-3 bg-slate-500 rounded-lg">
-                            {artist.artist}
-                        </div>
-                    );
-                })
-            ) : (
-                <h1 className="text-black">No Artists Found</h1>
-            )
-            )
-        }
+        {searchedArtist.length ? (
+          searchedArtist.map((artist, idx) => (
+            <div
+              key={idx}
+              className="flex flex-col text-black text-lg p-3 bg-slate-500 rounded-lg"
+            >
+              <div>Name: {artist.name}</div>
+              <div>Albumns: {artist.albums.join(", ")}</div>
+              <div>Average Popularity: {artist.avgPop}</div>
+              <div>Like Counts: {artist.likeCount}</div>
+              <div>Most Pop Genres: {artist.mostPopGenres.join(", ")}</div>
+            </div>
+          ))
+        ) : allArtists ? (
+          allArtists.map((artist, idx) => {
+            return (
+              <div
+                key={idx}
+                className="flex flex-row text-black text-lg p-3 bg-slate-500 rounded-lg"
+              >
+                {artist.artist}
+              </div>
+            );
+          })
+        ) : (
+          <h1 className="text-black">No Artists Found</h1>
+        )}
       </div>
     </div>
   );
 }
 
-async function getArtistStat(name) {
-    const albums = await axios.get(
-    `http://localhost:8080/artist/${name}/albums`
-    );
-    const avgPop = await axios.get(
-    `http://localhost:8080/artist/${name}/popularity`
-    );
-    const likeCount = await axios.get(
-    `http://localhost:8080/artist/${name}/totalLikes`
-    );
-    const mostPopGenres = await axios.get(
-    `http://localhost:8080/artist/${name}/genres`
-    );
-
-    return {
-        name: name,
-        albums: albums.data,
-        avgPop: avgPop.data,
-        likeCount: likeCount.data,
-        mostPopGenres: mostPopGenres.data
+async function getArtistStat(auth, name) {
+  const albums = await axios.get(
+    `http://localhost:8080/artist/${name}/albums`,
+    {
+      headers: {
+        Authorization: auth,
+      },
     }
+  );
+  const avgPop = await axios.get(
+    `http://localhost:8080/artist/${name}/popularity`,
+    {
+      headers: {
+        Authorization: auth,
+      },
+    }
+  );
+  const likeCount = await axios.get(
+    `http://localhost:8080/artist/${name}/totalLikes`,
+    {
+      headers: {
+        Authorization: auth,
+      },
+    }
+  );
+  const mostPopGenres = await axios.get(
+    `http://localhost:8080/artist/${name}/genres`,
+    {
+      headers: {
+        Authorization: auth,
+      },
+    }
+  );
+
+  return {
+    name: name,
+    albums: albums.data,
+    avgPop: avgPop.data,
+    likeCount: likeCount.data,
+    mostPopGenres: mostPopGenres.data,
+  };
 }
 
-async function searchArtists(searchQuery, hook_1, hook_2) {
-    console.log("Searching for:", searchQuery);
-    // GET /artists/{artist} - get artists by name
-    if (!searchQuery) {
-      console.log("No search query provided");
-      return;
-    } else {
-      try {
-        const artists = await axios.get(
-          `http://localhost:8080/artists/${searchQuery}`
-        );
-        const stats = await Promise.all(artists.data.map(({ artist }) => {
-          return getArtistStat(artist)
-        }))
-        hook_1(stats);
-        hook_2(null);
-        console.log("Artist found:", artists.data);
-      } catch (error) {
-        console.error("Error occurred while searching:", error);
-      }
+async function searchArtists(auth, searchQuery, hook_1, hook_2) {
+  console.log("Searching for:", searchQuery);
+  // GET /artists/{artist} - get artists by name
+  if (!searchQuery) {
+    console.log("No search query provided");
+    return;
+  } else {
+    try {
+      const artists = await axios.get(
+        `http://localhost:8080/artists/${searchQuery}`,
+        {
+          headers: {
+            Authorization: auth,
+          },
+        }
+      );
+      const stats = await Promise.all(
+        artists.data.map(({ artist }) => {
+          return getArtistStat(auth, artist);
+        })
+      );
+      hook_1(stats);
+      hook_2(null);
+      console.log("Artist found:", artists.data);
+    } catch (error) {
+      console.error("Error occurred while searching:", error);
     }
   }
+}
 
-async function getAllArtists(hook) {
+async function getAllArtists(auth, hook) {
   try {
-    const response = await axios.get(
-      `http://localhost:8080/artists`
-    );
+    const response = await axios.get(`http://localhost:8080/artists`, {
+      headers: {
+        Authorization: auth,
+      },
+    });
     console.log("response:", response);
     hook(response.data);
   } catch (error) {
@@ -133,6 +170,8 @@ async function getAllArtists(hook) {
 
 const mapStateToProps = (state) => ({
   artist: state.artist,
+  username: state.username,
+  password: state.password,
 });
 
 export default connect(mapStateToProps)(Artists);
