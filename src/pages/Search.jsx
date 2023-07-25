@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 
-function Search({ username, password }) {
+function Search(props) {
+  const { username, password } = props;
+  console.log("username:", username);
+  console.log("password:", password);
   const [searchQuery, setSearchQuery] = useState("");
   const [displayedSongs, setDisplayedSongs] = useState(null);
   const [displayedPlaylists, setDisplayedPlaylists] = useState(null);
@@ -160,6 +163,7 @@ async function addSongToPlaylist(auth, username, playlistName, trackName) {
 
 const mapStateToProps = (state) => ({
   username: state.username,
+  password: state.password,
 });
 
 export default connect(mapStateToProps)(Search);

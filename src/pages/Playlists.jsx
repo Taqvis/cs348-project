@@ -3,7 +3,10 @@ import axios from "axios";
 import PlaylistPopup from "../components/PlaylistPopup";
 import { connect } from "react-redux";
 
-function Playlists({ username, password }) {
+function Playlists(props) {
+  const { username, password } = props;
+  console.log("username:", username);
+  console.log("password:", password);
   const [showPlaylistPopup, setShowPlaylistPopup] = useState(false);
   const [showRenamePopup, setShowRenamePopup] = useState(false);
 
@@ -243,6 +246,9 @@ async function searchPlaylist(auth, searchQuery, hook) {
 }
 
 async function createPlaylist(auth, username, playlistName) {
+  console.log("Creating Playlist:", playlistName);
+  console.log("Username:", username);
+  console.log("Auth:", auth);
   try {
     const response = await axios.post(
       `http://localhost:8080/playlist/${username}/${playlistName}`,

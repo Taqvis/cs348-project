@@ -3,6 +3,7 @@ import { createStore } from 'redux';
 // Define the initial state
 const initialState = {
   username: '', // Initially empty
+  password: '', // Initially empty
 };
 
 // Define a reducer function to handle state updates
