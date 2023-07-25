@@ -3,39 +3,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Reccomendations = () => {
-  const navigate = useNavigate();
-
-  const [name, setName] = React.useState("");
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [errorMessage, setErrorMessage] = React.useState("");
-
-  const submitHandler = (event) => {
-    event.preventDefault();
-
-    setName(name.trim());
-    setUsername(username.trim());
-    setPassword(password.trim());
-
-    if (username === "" || password === "" || name === "") {
-      setErrorMessage("Please fill all the fields");
-      return;
-    }
-
-    axios
-      .post("http://localhost:8080/register", {
-        username: name,
-        displayName: username,
-        password: password,
-      })
-      .then((response) => {
-        console.log(response);
-        navigate("/login");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   return (
     <div className="bg-slate-600 h-screen px-10 py-10 w-full">

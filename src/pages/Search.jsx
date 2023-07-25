@@ -145,9 +145,14 @@ async function getPlaylists(auth, username, hook) {
 }
 
 async function addSongToPlaylist(auth, username, playlistName, trackName) {
+  console.log("Adding song to playlist:", trackName);
+  console.log("Playlist:", playlistName);
+  console.log("Username:", username);
+  console.log("Auth:", auth);
   try {
     const response = await axios.post(
       `http://localhost:8080/playlist/${username}/${playlistName}/${trackName}`,
+      {},
       {
         headers: {
           Authorization: auth,
