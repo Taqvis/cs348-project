@@ -5,8 +5,7 @@ import { connect } from "react-redux";
 
 function Playlists(props) {
   const { username, password } = props;
-  console.log("username:", username);
-  console.log("password:", password);
+
   const [showPlaylistPopup, setShowPlaylistPopup] = useState(false);
   const [showRenamePopup, setShowRenamePopup] = useState(false);
 
@@ -158,10 +157,11 @@ function Playlists(props) {
           <div className="flex flex-col grow space-y-3 mx-10">
             {currentPlaylist ? (
               currentPlaylist.tracks.map((track) => {
+                console.log(track);
                 return (
                   <div className="flex flex-row text-black text-lg p-3 bg-slate-500 rounded-lg">
-                    {/* <h1>{track.trackName}</h1> */}
-                    <h1>{track.trackId}</h1>
+                    <h1>{track.track.trackName}</h1>
+                    {/* <h1>{track.trackId}</h1> */}
                     <button
                       className="ml-auto px-3 hover:bg-red-700 rounded-lg"
                       onClick={(e) => handleRemoveItemFromPlaylist(e, track)}
@@ -246,12 +246,10 @@ async function searchPlaylist(auth, searchQuery, hook) {
 }
 
 async function createPlaylist(auth, username, playlistName) {
-  console.log("Creating Playlist:", playlistName);
-  console.log("Username:", username);
-  console.log("Auth:", auth);
   try {
     const response = await axios.post(
       `http://localhost:8080/playlist/${username}/${playlistName}`,
+      {},
       {
         headers: {
           Authorization: auth,
@@ -318,6 +316,7 @@ async function likePlaylist(auth, username, ownerName, playlistName) {
   try {
     const response = await axios.post(
       `http://localhost:8080/like/${ownerName}/${playlistName}/${username}`,
+      {},
       {
         headers: {
           Authorization: auth,
