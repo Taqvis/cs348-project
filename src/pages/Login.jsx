@@ -32,8 +32,6 @@ const Login = (props) => {
         if (response.status === 200) {
           props.setUsername(username);
           props.setPassword(password);
-          console.log("username:", username);
-          console.log("password:", password);
 
           navigate("/playlists");
         }
