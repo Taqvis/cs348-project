@@ -25,6 +25,9 @@ public class MusicService {
 
     @Autowired
     private PlaylistLikeRepository playlistLikeRepository;
+
+    @Autowired
+    private LeaderboardRepository leaderboardRepository;
     
     public List<Track> getAllTracks() {
         return trackRepository.findAll();
@@ -101,6 +104,10 @@ public class MusicService {
     public List<Track> getRecommendations(String userId) {
         List<String> recommendedTrackIDs = trackRepository.getRecommendations(userId);
         return trackRepository.findAllById(recommendedTrackIDs);
+    }
+
+    public List<LeaderboardSpot> getLeaderboard() {
+        return leaderboardRepository.findAll();
     }
 
 }

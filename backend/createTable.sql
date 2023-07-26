@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS Users (
 	username VARCHAR(36) NOT NULL,
     display_name VARCHAR(36) NOT NULL,
-    password VARCHAR(60) NOT NULL,
+    password VARCHAR(60) NOT NULL CHECK (LENGTH(password) >= 8),
     tier INT,
     PRIMARY KEY (username)
 );
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS Playlist_Tracks (
     track_id VARCHAR(30) NOT NULL, 
     PRIMARY KEY (username, playlist_name, track_id),
     FOREIGN KEY (username) REFERENCES Users(username) ON DELETE CASCADE,
-	FOREIGN KEY (username, playlist_name) REFERENCES Playlists(username, playlist_name) ON DELETE CASCADE,
+	FOREIGN KEY (username, playlist_name) REFERENCES Playlists(username, playlist_name) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (track_id) REFERENCES Tracks(track_id) ON DELETE CASCADE
 );
 
@@ -59,15 +59,6 @@ CREATE TABLE IF NOT EXISTS Playlist_Likes (
     liked_username VARCHAR(36) NOT NULL,
     PRIMARY KEY (owner_username, playlist_name, liked_username),
     FOREIGN KEY (owner_username) REFERENCES Users(username) ON DELETE CASCADE,
-	FOREIGN KEY (owner_username, playlist_name) REFERENCES Playlists(username, playlist_name) ON DELETE CASCADE,
+	FOREIGN KEY (owner_username, playlist_name) REFERENCES Playlists(username, playlist_name) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (liked_username) REFERENCES Users(username) ON DELETE CASCADE
 );
-
-CREATE OR REPLACE VIEW LikedTracks AS
-    SELECT t.track_id AS track_id, t.track_name AS track_name, l.liked_username AS liked_username
-    FROM Tracks AS t
-    INNER JOIN Playlist_Tracks AS pt
-    ON t.track_id = pt.track_id
-    INNER JOIN Playlist_Likes AS l
-    ON pt.username = l.owner_username
-    AND pt.playlist_name = l.playlist_name;
