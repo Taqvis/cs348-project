@@ -4,9 +4,12 @@ import com.example.cs348project.entity.*;
 import com.example.cs348project.repository.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class MusicService {
@@ -83,6 +86,20 @@ public class MusicService {
 
     public void deletePlaylist(String username, String playlistName) {
         playlistRepository.deleteById(new PlaylistID(username, playlistName));
+    }
+
+    public void renamePlaylist(String username, String oldName, String newName) {
+        Optional<Playlist> playlist = playlistRepository.findById(new PlaylistID(username, oldName));
+        if (playlist.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Playlist not found");
+        }
+
+        Optional<Playlist> existingPlaylist = playlistRepository.findById(new PlaylistID(username, newName));
+        if (existingPlaylist.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Playlist with new name already exists");
+        }
+
+        playlistRepository.renamePlaylist(username, oldName, newName);
     }
 
     public PlaylistTrack addTrackToPlaylist(String username, String playlistName, String trackId) {

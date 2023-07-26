@@ -80,6 +80,12 @@ public class MusicController {
         musicService.deletePlaylist(username, playlistName);
     }
 
+
+    @PatchMapping(path = "/playlist/{username}/{oldName}/{newName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public void renamePlaylist(@PathVariable String username, @PathVariable String oldName, @PathVariable String newName) {
+        musicService.renamePlaylist(username, oldName, newName);
+    }
+
     @PostMapping(path = "/playlist/{username}/{playlistName}/{trackId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public PlaylistTrack addTrackToPlaylist(@PathVariable String username, @PathVariable String playlistName, @PathVariable String trackId) {
         return musicService.addTrackToPlaylist(username, playlistName, trackId);
