@@ -246,9 +246,6 @@ async function searchPlaylist(auth, searchQuery, hook) {
 }
 
 async function createPlaylist(auth, username, playlistName) {
-  console.log("Creating Playlist:", playlistName);
-  console.log("Username:", username);
-  console.log("Auth:", auth);
   try {
     const response = await axios.post(
       `http://localhost:8080/playlist/${username}/${playlistName}`,

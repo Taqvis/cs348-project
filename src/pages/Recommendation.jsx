@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 
-function Search(props) {
+function Recommendation(props) {
   const { username, password } = props;
-  const [searchQuery, setSearchQuery] = useState("");
   const [displayedSongs, setDisplayedSongs] = useState(null);
   const [displayedPlaylists, setDisplayedPlaylists] = useState(null);
 
@@ -13,16 +12,8 @@ function Search(props) {
   // get the users playlists
   useEffect(() => {
     getPlaylists(auth, username, setDisplayedPlaylists);
+    getReccomendations(auth, username, setDisplayedSongs);
   }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Searching for:", searchQuery);
-
-    searchSongs(auth, searchQuery, setDisplayedSongs);
-
-    setSearchQuery("");
-  };
 
   const handleAddToPlaylist = (song, playlist) => {
     if (playlist === "") {
@@ -36,28 +27,6 @@ function Search(props) {
   };
   return (
     <div className="bg-slate-600 h-screen px-10 py-10 w-full">
-      <form className="flex justify-center" onSubmit={handleSubmit}>
-        <div className="w-1/2">
-          <div className="flex space-x-4">
-            <div className="flex rounded-2xl overflow-hidden w-full">
-              <input
-                type="text"
-                className="w-full text-black rounded-md rounded-r-none px-4"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <button className="bg-blue-500 hover:bg-blue-700 text-black px-6 text-lg font-semibold py-4 rounded-r-md">
-                Go
-              </button>
-            </div>
-          </div>
-          <div className="flex space-x-1 items-center mb-2">
-            <p className="text-black text-lg font-semibold">
-              Please enter something
-            </p>
-          </div>
-        </div>
-      </form>
       <div className="flex justify-center flex-col">
         {displayedSongs ? (
           <div className="justify-center space-y-2">
@@ -94,7 +63,7 @@ function Search(props) {
             )}
           </div>
         ) : (
-          <h1 className="text-black">No Songs Found</h1>
+          <h1 className="text-black">No Reccomendations, Like a playlist to get reccomendations</h1>
         )}
       </div>
     </div>
@@ -103,6 +72,7 @@ function Search(props) {
 
 async function searchSongs(auth, searchQuery, hook) {
   console.log("Searching for:", searchQuery);
+  // GET /tracks/{name} - get tracks by name
   if (!searchQuery) {
     console.log("No search query provided");
     return;
@@ -124,6 +94,23 @@ async function searchSongs(auth, searchQuery, hook) {
   }
 }
 
+async function getReccomendations(auth, username, hook) {
+  try {
+    const response = await axios.get(
+      `http://localhost:8080/recommend/${username}`,
+      {
+        headers: {
+          Authorization: auth,
+        },
+      }
+    );
+    console.log("response:", response);
+    hook(response.data);
+  } catch (error) {
+    console.error("Error occurred while getting reccomendations:", error);
+  }
+}
+
 async function getPlaylists(auth, username, hook) {
   try {
     const response = await axios.get(
@@ -142,6 +129,10 @@ async function getPlaylists(auth, username, hook) {
 }
 
 async function addSongToPlaylist(auth, username, playlistName, trackName) {
+  console.log("Adding song to playlist:", trackName);
+  console.log("Playlist:", playlistName);
+  console.log("Username:", username);
+  console.log("Auth:", auth);
   try {
     const response = await axios.post(
       `http://localhost:8080/playlist/${username}/${playlistName}/${trackName}`,
@@ -164,4 +155,4 @@ const mapStateToProps = (state) => ({
   password: state.password,
 });
 
-export default connect(mapStateToProps)(Search);
+export default connect(mapStateToProps)(Recommendation);
