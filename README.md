@@ -25,7 +25,12 @@ mysql> source %PROJECT_LOCATION%/dataset/load-sample.sql
    ${DB_USER} = MySQL username
    ${DB_PASSWORD} = MySQL password
    ${DB_NAME} = Database name
-2. Run project
+2. Set JAVA_HOME environment variable to point to Java installation bin
+3. Run project from root project directory using
+```
+cd ./backend
+./mvnw spring-boot:run
+```
 
 # loading frontend
 1. Clone `frontend-main` branch
