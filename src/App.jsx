@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Search from "./pages/Search";
 import Playlists from "./pages/Playlists";
 import Artists from "./pages/Artists"
+import Leaderboard from "./pages/Leaderboard"
 import Recommendation from "./pages/Recommendation";
 // import Test from "./pages/test";
 
@@ -48,6 +49,11 @@ export default function App() {
                   </NavLink>
                 </li>
                 <li>
+                  <NavLink className="navbarElement" to="/leaderboard">
+                    Leaderboard
+                  </NavLink>
+                </li>
+                <li>
                   <NavLink className="navbarElement" to="/recommendation">
                     Recommendations
                   </NavLink>
@@ -64,6 +70,7 @@ export default function App() {
               <Route path="/search" element={<Search />} />
               <Route path="/playlists" element={<Playlists />} />
               <Route path="/artists" element={<Artists />} />
+              <Route path="/leaderboard" element={<Leaderboard />} />
               <Route path="/recommendation" element={<Recommendation />} />
               {/* <Route path="/test" element={<Test />} /> */}
             </Routes>
