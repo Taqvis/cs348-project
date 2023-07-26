@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Search from "./pages/Search";
 import Playlists from "./pages/Playlists";
 import Artists from "./pages/Artists"
+import Leaderboard from "./pages/Leaderboard"
 // import Test from "./pages/test";
 
 const globalState = {
@@ -53,6 +54,11 @@ export default function App() {
                     Artists
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink className="navbarElement" to="/leaderboard">
+                    Leaderboard
+                  </NavLink>
+                </li>
               </ul>
             </div>
           </div>
@@ -65,6 +71,7 @@ export default function App() {
               <Route path="/search" element={<Search />} />
               <Route path="/playlists" element={<Playlists />} />
               <Route path="/artists" element={<Artists />} />
+              <Route path="/leaderboard" element={<Leaderboard />} />
               {/* <Route path="/test" element={<Test />} /> */}
             </Routes>
           </div>
