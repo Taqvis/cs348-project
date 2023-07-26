@@ -25,7 +25,12 @@ function Leaderboard({ username, password }) {
           leaderboardSpots.map((value, idx) => (
             <div
               key={idx}
-              className="flex flex-row justify-between text-black text-lg p-3 bg-slate-500 rounded-lg"
+              className={"flex flex-row justify-between text-black text-lg p-3 rounded-lg " 
+              + (value.position > 50 ? 'bg-slate-500' 
+              : value.position > 25 ? 'bg-emerald-500' 
+              : value.position > 5 ? 'bg-orange-500'
+              : value.position > 1 ? 'bg-zinc-500'
+              : 'bg-yellow-500')}
             >
               <div>#{value.position}</div>
               <div>{value.likes}</div>
