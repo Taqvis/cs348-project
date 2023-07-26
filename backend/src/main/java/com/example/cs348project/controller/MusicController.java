@@ -105,4 +105,9 @@ public class MusicController {
         return musicService.getRecommendations(userId);
     }
 
+    @GetMapping(path = "/leaderboard")
+    public List<LeaderboardSpot> getLeaderboard() {
+        return musicService.getLeaderboard();
+    }
+
 }
