@@ -17,6 +17,10 @@ function Playlists(props) {
 
   const auth = "Basic " + btoa(username + ":" + password);
 
+  const [playlistOwner, setPlaylistOwner] = useState("");
+  const [playlistName, setPlaylistName] = useState("");
+  const [newName, setNewName] = useState("");
+
   useEffect(() => {
     if (!username) {
       console.log("No username provided");
@@ -40,17 +44,26 @@ function Playlists(props) {
     if (e.target.innerHTML === "Delete") {
       deletePlaylist(auth, playlist.username, playlist.playlistName);
     } else if (e.target.innerHTML === "Rename") {
-      // renamePlaylist(playlist.username, playlist.playlistName);
+      openRenamePopup(playlist.username, playlist.playlistName);
       setShowRenamePopup(true);
     } else {
       setCurrentPlaylist(playlist);
     }
   };
 
-  const handleRenamePlaylist = (playlistName) => {
+  const handleRenamePlaylist = (playlistOwner, playlistName, newname) => {
     console.log("Renaming Playlist:", playlistName);
-    // console.log("FEATURE NOT IMPLEMENTED");
-    // renamePlaylist(username, currentPlaylist.playlistName, playlistName);
+    console.log("playlistOwner:", playlistOwner);
+    console.log("playlistName:", playlistName);
+    console.log("newname:", newname);
+
+    renamePlaylist(auth, playlistOwner, playlistName, newname);
+  };
+
+  const openRenamePopup = (playlistOwner, playlistName) => {
+    setPlaylistOwner(playlistOwner);
+    setPlaylistName(playlistName);
+    setShowRenamePopup(true);
   };
 
   const handleRemoveItemFromPlaylist = (e, item) => {
@@ -99,7 +112,9 @@ function Playlists(props) {
           onClose={() => {
             setShowRenamePopup(false);
           }}
-          onConfirm={handleRenamePlaylist}
+          onConfirm={(newName) => {
+            handleRenamePlaylist(playlistOwner, playlistName, newName);
+          }}
         />
       )}
 
@@ -226,6 +241,23 @@ function Playlists(props) {
       </div>
     </>
   );
+}
+
+async function renamePlaylist(auth, username, playlistName, newPlaylistName) {
+  try {
+    const response = await axios.patch(
+      `http://localhost:8080/playlist/${username}/${playlistName}/${newPlaylistName}`,
+      {},
+      {
+        headers: {
+          Authorization: auth,
+        },
+      }
+    );
+    console.log("response:", response);
+  } catch (error) {
+    console.error("Error occurred while renaming:", error);
+  }
 }
 
 async function searchPlaylist(auth, searchQuery, hook) {

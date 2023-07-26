@@ -22,7 +22,7 @@ const Login = (props) => {
       return;
     }
     axios
-      .get("http://localhost:8080/tracks", {
+      .get("http://localhost:8080/tracks/username", {
         headers: {
           Authorization: "Basic " + btoa(username + ":" + password),
         },
