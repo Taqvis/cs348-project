@@ -118,8 +118,18 @@ public class MusicService {
         playlistLikeRepository.deleteById(new PlaylistLikeID(ownerName, playlistName, username));
     }
 
-    public List<Track> getRecommendations(String userId) {
-        List<String> recommendedTrackIDs = trackRepository.getRecommendations(userId);
+    public List<Track> getDanceabilityRecommendations(String userId) {
+        List<String> recommendedTrackIDs = trackRepository.getDanceabilityRecommendations(userId);
+        return trackRepository.findAllById(recommendedTrackIDs);
+    }
+
+    public List<Track> getEnergyRecommendations(String userId) {
+        List<String> recommendedTrackIDs = trackRepository.getEnergyRecommendations(userId);
+        return trackRepository.findAllById(recommendedTrackIDs);
+    }
+
+    public List<Track> getTempoRecommendations(String userId) {
+        List<String> recommendedTrackIDs = trackRepository.getTempoRecommendations(userId);
         return trackRepository.findAllById(recommendedTrackIDs);
     }
 
