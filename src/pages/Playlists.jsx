@@ -26,10 +26,15 @@ function Playlists(props) {
       console.log("No username provided");
       return;
     } else {
+      refreshData();
       getPlaylists(auth, username, setPlaylists);
       console.log("Playlists:", playlists);
     }
   }, [username, password, showPlaylistPopup]);
+
+  const refreshData = () => {
+    getPlaylists(auth, username, setPlaylists);
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -37,12 +42,15 @@ function Playlists(props) {
     searchPlaylist(auth, searchQuery, setFoundPlaylists);
   };
 
-  const handlePlaylistClick = (e, playlist) => {
+  const handlePlaylistClick = async (e, playlist) => {
     console.log(playlist);
     console.log(e.target.innerHTML);
-
+  
     if (e.target.innerHTML === "Delete") {
-      deletePlaylist(auth, playlist.username, playlist.playlistName);
+      await deletePlaylist(auth, playlist.username, playlist.playlistName);
+      getPlaylists(auth, username, setPlaylists);
+      setFoundPlaylists(null);
+      setSearchQuery("");   
     } else if (e.target.innerHTML === "Rename") {
       openRenamePopup(playlist.username, playlist.playlistName);
       setShowRenamePopup(true);
@@ -51,13 +59,10 @@ function Playlists(props) {
     }
   };
 
-  const handleRenamePlaylist = (playlistOwner, playlistName, newname) => {
-    console.log("Renaming Playlist:", playlistName);
-    console.log("playlistOwner:", playlistOwner);
-    console.log("playlistName:", playlistName);
-    console.log("newname:", newname);
-
-    renamePlaylist(auth, playlistOwner, playlistName, newname);
+  const handleRenamePlaylist = async (playlistOwner, playlistName, newname) => {
+    await renamePlaylist(auth, playlistOwner, playlistName, newname);
+    getPlaylists(auth, username, setPlaylists);
+    setFoundPlaylists(null);
   };
 
   const openRenamePopup = (playlistOwner, playlistName) => {
@@ -76,18 +81,29 @@ function Playlists(props) {
     );
   };
 
-  const handleLikePlaylist = (e, playlist) => {
-    likePlaylist(auth, username, playlist.username, playlist.playlistName);
+  const handleLikePlaylist = async (e, playlist) => {
+    await likePlaylist(
+      auth,
+      username,
+      playlist.username,
+      playlist.playlistName
+    );
+    searchPlaylist(auth, searchQuery, setFoundPlaylists);
   };
 
-  const handleUnlikePlaylist = (e, playlist) => {
-    unlikePlaylist(auth, username, playlist.username, playlist.playlistName);
+  const handleUnlikePlaylist = async (e, playlist) => {
+    await unlikePlaylist(
+      auth,
+      username,
+      playlist.username,
+      playlist.playlistName
+    );
+    searchPlaylist(auth, searchQuery, setFoundPlaylists);
   };
 
   const handleCreatePlaylist = async (playlistName) => {
-    console.log("Creating Playlist:", playlistName);
-
     createPlaylist(auth, username, playlistName);
+    refreshData();
   };
 
   function hasLikedUsername(playlistData) {
@@ -245,7 +261,7 @@ function Playlists(props) {
 
 async function renamePlaylist(auth, username, playlistName, newPlaylistName) {
   try {
-    const response = await axios.patch(
+    await axios.patch(
       `http://localhost:8080/playlist/${username}/${playlistName}/${newPlaylistName}`,
       {},
       {
@@ -254,7 +270,6 @@ async function renamePlaylist(auth, username, playlistName, newPlaylistName) {
         },
       }
     );
-    console.log("response:", response);
   } catch (error) {
     console.error("Error occurred while renaming:", error);
   }
@@ -279,7 +294,7 @@ async function searchPlaylist(auth, searchQuery, hook) {
 
 async function createPlaylist(auth, username, playlistName) {
   try {
-    const response = await axios.post(
+    await axios.post(
       `http://localhost:8080/playlist/${username}/${playlistName}`,
       {},
       {
@@ -288,13 +303,11 @@ async function createPlaylist(auth, username, playlistName) {
         },
       }
     );
-    console.log("response:", response);
   } catch (error) {
     console.error("Error occurred while creating:", error);
   }
 }
 
-// get all playlists of user
 async function getPlaylists(auth, username, hook) {
   try {
     const response = await axios.get(
@@ -305,7 +318,6 @@ async function getPlaylists(auth, username, hook) {
         },
       }
     );
-    console.log("response:", response);
     hook(response.data);
   } catch (error) {
     console.error("Error occurred while getting playlists:", error);
@@ -314,7 +326,7 @@ async function getPlaylists(auth, username, hook) {
 
 async function deletePlaylist(auth, username, playlistName) {
   try {
-    const response = await axios.delete(
+    await axios.delete(
       `http://localhost:8080/playlist/${username}/${playlistName}`,
       {
         headers: {
@@ -322,7 +334,6 @@ async function deletePlaylist(auth, username, playlistName) {
         },
       }
     );
-    console.log("response:", response);
   } catch (error) {
     console.error("Error occurred while deleting:", error);
   }
@@ -330,7 +341,7 @@ async function deletePlaylist(auth, username, playlistName) {
 
 async function removeSongFromPlaylist(auth, username, playlistName, trackId) {
   try {
-    const response = await axios.delete(
+    await axios.delete(
       `http://localhost:8080/playlist/${username}/${playlistName}/${trackId}`,
       {
         headers: {
@@ -338,7 +349,6 @@ async function removeSongFromPlaylist(auth, username, playlistName, trackId) {
         },
       }
     );
-    console.log("response:", response);
   } catch (error) {
     console.error("Error occurred while removing:", error);
   }
@@ -346,7 +356,7 @@ async function removeSongFromPlaylist(auth, username, playlistName, trackId) {
 
 async function likePlaylist(auth, username, ownerName, playlistName) {
   try {
-    const response = await axios.post(
+    await axios.post(
       `http://localhost:8080/like/${ownerName}/${playlistName}/${username}`,
       {},
       {
@@ -355,7 +365,6 @@ async function likePlaylist(auth, username, ownerName, playlistName) {
         },
       }
     );
-    console.log("response:", response);
   } catch (error) {
     console.error("Error occurred while liking:", error);
   }
@@ -363,7 +372,7 @@ async function likePlaylist(auth, username, ownerName, playlistName) {
 
 async function unlikePlaylist(auth, username, ownerName, playlistName) {
   try {
-    const response = await axios.delete(
+    await axios.delete(
       `http://localhost:8080/like/${ownerName}/${playlistName}/${username}`,
       {
         headers: {
@@ -371,12 +380,10 @@ async function unlikePlaylist(auth, username, ownerName, playlistName) {
         },
       }
     );
-    console.log("response:", response);
   } catch (error) {
     console.error("Error occurred while unliking:", error);
   }
 }
-
 const mapStateToProps = (state) => ({
   username: state.username,
   password: state.password,
