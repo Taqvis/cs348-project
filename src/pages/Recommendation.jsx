@@ -6,7 +6,7 @@ function Recommendation(props) {
   const { username, password } = props;
   const [displayedSongs, setDisplayedSongs] = useState(null);
   const [displayedPlaylists, setDisplayedPlaylists] = useState(null);
-  const [recommendationType, setRecommendationType] = useState("energy");
+  const [recommendationType, setRecommendationType] = useState("danceability");
 
   const auth = 'Basic ' + btoa(username + ':' + password);
 
