@@ -106,9 +106,19 @@ public class MusicController {
         musicService.removePlaylistLike(ownerName, playlistName, username);
     }
 
-    @GetMapping(path = "/recommend/{userId}")
-    public List<Track> getRecommendations(@PathVariable(name = "userId") String userId) {
-        return musicService.getRecommendations(userId);
+    @GetMapping(path = "/recommend/danceability/{userId}")
+    public List<Track> getDanceabilityRecommendations(@PathVariable(name = "userId") String userId) {
+        return musicService.getDanceabilityRecommendations(userId);
+    }
+
+    @GetMapping(path = "/recommend/energy/{userId}")
+    public List<Track> getEnergyRecommendations(@PathVariable(name = "userId") String userId) {
+        return musicService.getEnergyRecommendations(userId);
+    }
+
+    @GetMapping(path = "/recommend/tempo/{userId}")
+    public List<Track> getTempoRecommendations(@PathVariable(name = "userId") String userId) {
+        return musicService.getTempoRecommendations(userId);
     }
 
     @GetMapping(path = "/leaderboard")
