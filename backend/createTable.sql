@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS Users (
 	username VARCHAR(36) NOT NULL,
     display_name VARCHAR(36) NOT NULL,
-    password VARCHAR(20) NOT NULL CHECK (LENGTH(password) >= 8),
+    password VARCHAR(60) NOT NULL CHECK (LENGTH(password) >= 8),
     tier INT,
     PRIMARY KEY (username)
 );

@@ -1,5 +1,5 @@
--- Feature 4.i: LikedPlaylist View
-CREATE VIEW LikedPlaylist AS
+-- Feature 4.i: LikedTracks View
+CREATE VIEW LikedTracks AS
 	SELECT t.track_id AS track_id,
 		t.track_name AS track_name, 
 		l.liked_username AS liked_username
