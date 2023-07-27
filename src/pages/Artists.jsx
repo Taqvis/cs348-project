@@ -22,7 +22,7 @@ function Artists({ artist, username, password }) {
   };
 
   return (
-    <div className="bg-slate-600 h-screen px-10 py-10 w-full">
+    <div className="bg-slate-600 min:h-screen px-10 py-10 w-full">
       <form className="flex justify-center" onSubmit={handleSubmit}>
         <div className="w-1/2">
           <div className="flex space-x-4">
