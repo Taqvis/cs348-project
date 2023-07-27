@@ -102,7 +102,7 @@ SELECT * FROM Playlists WHERE playlist_name LIKE "%New Test Playlist%";
 EXPLAIN WITH liked_avg AS (
 	SELECT AVG(danceability) AS averageVal FROM Tracks
 	WHERE track_id IN 
-		(SELECT track_id FROM LikedPlaylist 
+		(SELECT track_id FROM LikedTracks 
 		WHERE liked_username = "testuser"))
 SELECT * FROM Tracks, liked_avg 
 WHERE ABS((Tracks.danceability - liked_avg.averageVal)) <= 0.05
@@ -115,7 +115,7 @@ ON Tracks(danceability);
 EXPLAIN WITH liked_avg AS (
 	SELECT AVG(danceability) AS averageVal FROM Tracks
 	WHERE track_id IN 
-		(SELECT track_id FROM LikedPlaylist 
+		(SELECT track_id FROM LikedTracks 
 		WHERE liked_username = "testuser"))
 SELECT * FROM Tracks, liked_avg 
 WHERE ABS((Tracks.danceability - liked_avg.averageVal)) <= 0.05
