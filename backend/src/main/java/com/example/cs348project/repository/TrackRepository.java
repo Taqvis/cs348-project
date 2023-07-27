@@ -19,7 +19,7 @@ public interface TrackRepository extends JpaRepository<Track, String> {
                     "WHERE t.track_id = lt.track_id AND lt.liked_username = :userId) " +
                     "SELECT t.track_id track_id " +
                     "FROM Tracks t, liked_avg " +
-                    "WHERE ABS(t.danceability - liked_avg.avgVal) <= 0.0025 LIMIT 20;", nativeQuery = true)
+                    "WHERE ABS(t.danceability - liked_avg.avgVal) <= 0.005 LIMIT 20;", nativeQuery = true)
     List<String> getDanceabilityRecommendations(String userId);
 
     @Query(value =
@@ -29,7 +29,7 @@ public interface TrackRepository extends JpaRepository<Track, String> {
                     "WHERE t.track_id = lt.track_id AND lt.liked_username = :userId) " +
                     "SELECT t.track_id track_id " +
                     "FROM Tracks t, liked_avg " +
-                    "WHERE ABS(t.energy - liked_avg.avgVal) <= 0.0025 LIMIT 20;", nativeQuery = true)
+                    "WHERE ABS(t.energy - liked_avg.avgVal) <= 0.005 LIMIT 20;", nativeQuery = true)
     List<String> getEnergyRecommendations(String userId);
 
     @Query(value =
@@ -39,6 +39,6 @@ public interface TrackRepository extends JpaRepository<Track, String> {
                     "WHERE t.track_id = lt.track_id AND lt.liked_username = :userId) " +
                     "SELECT t.track_id track_id " +
                     "FROM Tracks t, liked_avg " +
-                    "WHERE ABS(t.tempo - liked_avg.avgVal) <= 1 LIMIT 20;", nativeQuery = true)
+                    "WHERE ABS(t.tempo - liked_avg.avgVal) <= 2 LIMIT 20;", nativeQuery = true)
     List<String> getTempoRecommendations(String userId);
 }
