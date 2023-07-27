@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Slf4j
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class PlaylistIntegrationTests {
+public class TrackArtistsIntegrationTests {
 
     private RestTemplate restTemplate = new RestTemplate();
 
