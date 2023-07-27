@@ -75,13 +75,13 @@ public class MusicController {
         return musicService.createPlaylist(username, playlistName);
     }
 
-    @DeleteMapping(path = "/playlist/{username}/{playlistName}", produces = MediaType.TEXT_PLAIN_VALUE)
+    @DeleteMapping(path = "/playlist/{username}/{playlistName}")
     public void deletePlaylist(@PathVariable String username, @PathVariable String playlistName) {
         musicService.deletePlaylist(username, playlistName);
     }
 
 
-    @PatchMapping(path = "/playlist/{username}/{oldName}/{newName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(path = "/playlist/{username}/{oldName}/{newName}")
     public void renamePlaylist(@PathVariable String username, @PathVariable String oldName, @PathVariable String newName) {
         musicService.renamePlaylist(username, oldName, newName);
     }
@@ -91,7 +91,7 @@ public class MusicController {
         return musicService.addTrackToPlaylist(username, playlistName, trackId);
     }
 
-    @DeleteMapping(path = "/playlist/{username}/{playlistName}/{trackId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = "/playlist/{username}/{playlistName}/{trackId}")
     public void removeTrackToPlaylist(@PathVariable String username, @PathVariable String playlistName, @PathVariable String trackId) {
         musicService.removeTrackFromPlaylist(username, playlistName, trackId);
     }
