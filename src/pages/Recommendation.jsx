@@ -6,14 +6,15 @@ function Recommendation(props) {
   const { username, password } = props;
   const [displayedSongs, setDisplayedSongs] = useState(null);
   const [displayedPlaylists, setDisplayedPlaylists] = useState(null);
+  const [recommendationType, setRecommendationType] = useState("energy");
 
   const auth = 'Basic ' + btoa(username + ':' + password);
 
   // get the users playlists
   useEffect(() => {
     getPlaylists(auth, username, setDisplayedPlaylists);
-    getReccomendations(auth, username, setDisplayedSongs);
-  }, []);
+    getRecommendations(auth, recommendationType, username, setDisplayedSongs);
+  }, [auth, username, recommendationType]);
 
   const handleAddToPlaylist = (song, playlist) => {
     if (playlist === "") {
@@ -23,10 +24,24 @@ function Recommendation(props) {
       console.log("Playlist:", playlist);
       addSongToPlaylist(auth, username, playlist, song.trackId);
     }
-
+    
   };
   return (
-    <div className="bg-slate-600 min:h-screen px-10 py-10 w-full">
+    <div className="bg-slate-600 h-screen px-10 py-10 w-full">
+      <div className="flex justify-center flex-row">
+        <div className="flex text-black text-lg m-3 p-3 bg-slate-500 rounded-lg" onClick={() => setRecommendationType("danceability")}>
+          Danceability
+        </div>
+        <div className="flex text-black text-lg m-3 p-3 bg-slate-500 rounded-lg" onClick={() => setRecommendationType("energy")}>
+          Energy
+        </div>
+        <div className="flex text-black text-lg m-3 p-3 bg-slate-500 rounded-lg" onClick={() => setRecommendationType("tempo")}>
+          Tempo
+        </div>
+      </div>
+      <h1 className="flex justify-center text-2xl font-bold my-1 py-3 rounded-lg">
+      Here are your {recommendationType} recommendations:
+      </h1>
       <div className="flex justify-center flex-col">
         {displayedSongs ? (
           <div className="justify-center space-y-2">
@@ -63,7 +78,7 @@ function Recommendation(props) {
             )}
           </div>
         ) : (
-          <h1 className="text-black">No Reccomendations, Like a playlist to get reccomendations</h1>
+          <h1 className="text-black">No Recommendations, Like a playlist to get recommendations</h1>
         )}
       </div>
     </div>
@@ -94,10 +109,10 @@ async function searchSongs(auth, searchQuery, hook) {
   }
 }
 
-async function getReccomendations(auth, username, hook) {
+async function getRecommendations(auth, type, username, hook) {
   try {
     const response = await axios.get(
-      `http://localhost:8080/recommend/${username}`,
+      `http://localhost:8080/recommend/${type}/${username}`,
       {
         headers: {
           Authorization: auth,
