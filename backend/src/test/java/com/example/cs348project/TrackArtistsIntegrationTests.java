@@ -4,27 +4,24 @@ import com.example.cs348project.entity.Track;
 import com.example.cs348project.entity.User;
 import com.example.cs348project.repository.UserRepository;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Base64;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-@Slf4j
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class TrackArtistsIntegrationTests {
 
-    private RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private TestRestTemplate restTemplate;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -33,13 +30,15 @@ public class TrackArtistsIntegrationTests {
     private UserRepository userRepository;
 
     private User user;
+
     private String auth;
-    private final String username = "TEMPUSER";
-    private final String password = "password";
 
 
     @BeforeEach
     public void setup() {
+        final String username = "TEMP_USER";
+        final String password = "password";
+
         user = new User();
         user.setUsername(username);
         user.setDisplayName(username);
@@ -58,7 +57,6 @@ public class TrackArtistsIntegrationTests {
     @Test
     void getAllPlaylistsTest() {
         HttpHeaders headers = new HttpHeaders();
-        System.err.println(auth);
         headers.add("Authorization", auth);
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
@@ -75,14 +73,12 @@ public class TrackArtistsIntegrationTests {
         HttpHeaders headers = new HttpHeaders();
         System.err.println(auth);
         headers.add("Authorization", auth);
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-
-        HttpEntity<MultiValueMap<String, String>>  request = new HttpEntity<>(map, headers);
+        HttpEntity<MultiValueMap<String, String>>  request = new HttpEntity<>(headers);
 
         ResponseEntity<Track[]> response = restTemplate.exchange( "http://localhost:8080/tracks/Nevada", HttpMethod.GET, request, Track[].class);
-        log.info("{}", response.getBody().length);
-        assertTrue(response.getBody().length == 1);
-        assertTrue(response.getBody()[0].getTrackId().equals("02shCNmb6IvgB5jLqKjtkK"));
+        assertNotNull(response.getBody());
+        assertEquals(1, response.getBody().length);
+        assertEquals("02shCNmb6IvgB5jLqKjtkK", response.getBody()[0].getTrackId());
     }
 
     // test to search for track (when no such track name or artist name)
@@ -91,12 +87,11 @@ public class TrackArtistsIntegrationTests {
         HttpHeaders headers = new HttpHeaders();
         System.err.println(auth);
         headers.add("Authorization", auth);
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-
-        HttpEntity<MultiValueMap<String, String>>  request = new HttpEntity<>(map, headers);
+        HttpEntity<MultiValueMap<String, String>>  request = new HttpEntity<>(headers);
 
         ResponseEntity<Track[]> response = restTemplate.exchange( "http://localhost:8080/tracks/Temporary Artist", HttpMethod.GET, request, Track[].class);
-        assertTrue(response.getBody().length == 0);
+        assertNotNull(response.getBody());
+        assertEquals(0, response.getBody().length);
     }
 
     // test to search for artist popularity when artist exists
@@ -105,13 +100,10 @@ public class TrackArtistsIntegrationTests {
         HttpHeaders headers = new HttpHeaders();
         System.err.println(auth);
         headers.add("Authorization", auth);
-
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-
-        HttpEntity<MultiValueMap<String, String>>  request = new HttpEntity<>(map, headers);
+        HttpEntity<MultiValueMap<String, String>>  request = new HttpEntity<>(headers);
 
         ResponseEntity<Float> response = restTemplate.exchange( "http://localhost:8080/artist/Linkin Park/popularity", HttpMethod.GET, request, Float.class);
-        assertTrue(response.getBody() == 41.3333f);
+        assertEquals(41.3333f, response.getBody());
     }
 
         // test to search for artist popularity when artist doesn't exist
@@ -120,13 +112,10 @@ public class TrackArtistsIntegrationTests {
         HttpHeaders headers = new HttpHeaders();
         System.err.println(auth);
         headers.add("Authorization", auth);
-
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-
-        HttpEntity<MultiValueMap<String, String>>  request = new HttpEntity<>(map, headers);
+        HttpEntity<MultiValueMap<String, String>>  request = new HttpEntity<>(headers);
 
         ResponseEntity<Float> response = restTemplate.exchange( "http://localhost:8080/artist/Temporary Artist/popularity", HttpMethod.GET, request, Float.class);
-        assertTrue(response.getBody() == null);
+        assertNull(response.getBody());
     }
 
     // test to search for artist albums when artist exists
@@ -140,10 +129,11 @@ public class TrackArtistsIntegrationTests {
 
         HttpEntity<MultiValueMap<String, String>>  request = new HttpEntity<>(map, headers);
         ResponseEntity<String[]> response = restTemplate.exchange( "http://localhost:8080/artist/Linkin Park/albums", HttpMethod.GET, request, String[].class);
-        assertTrue(response.getBody().length == 3);
-        assertTrue(response.getBody()[0].equals("Hybrid Theory"));
-        assertTrue(response.getBody()[1].equals("Waiting for the End"));
-        assertTrue(response.getBody()[2].equals("Minutes to Midnight"));
+        assertNotNull(response.getBody());
+        assertEquals(3, response.getBody().length);
+        assertEquals("Hybrid Theory", response.getBody()[0]);
+        assertEquals("Waiting for the End", response.getBody()[1]);
+        assertEquals("Minutes to Midnight", response.getBody()[2]);
     }
 
     // test to search for artist albums when artist doesn't exist
@@ -157,7 +147,8 @@ public class TrackArtistsIntegrationTests {
 
         HttpEntity<MultiValueMap<String, String>>  request = new HttpEntity<>(map, headers);
         ResponseEntity<String[]> response = restTemplate.exchange( "http://localhost:8080/artist/Temporary Artist/albums", HttpMethod.GET, request, String[].class);
-        assertTrue(response.getBody().length == 0);
+        assertNotNull(response.getBody());
+        assertEquals(0, response.getBody().length);
     }
 
     // test to search for artist most pop genres when artist exist
@@ -171,8 +162,9 @@ public class TrackArtistsIntegrationTests {
 
         HttpEntity<MultiValueMap<String, String>>  request = new HttpEntity<>(map, headers);
         ResponseEntity<String[]> response = restTemplate.exchange( "http://localhost:8080/artist/Linkin Park/genres", HttpMethod.GET, request, String[].class);
-        assertTrue(response.getBody()[0].equals("grunge"));
-        assertTrue(response.getBody()[1].equals("metal"));
+        assertNotNull(response.getBody());
+        assertEquals("grunge", response.getBody()[0]);
+        assertEquals("metal", response.getBody()[1]);
     }
 
     //  test to search for artist most pop genres when artist doesn't exist
@@ -186,13 +178,13 @@ public class TrackArtistsIntegrationTests {
 
         HttpEntity<MultiValueMap<String, String>>  request = new HttpEntity<>(map, headers);
         ResponseEntity<String[]> response = restTemplate.exchange( "http://localhost:8080/artist/Temporary Artist/genres", HttpMethod.GET, request, String[].class);
-        assertTrue(response.getBody().length == 0);
+        assertNotNull(response.getBody());
+        assertEquals(0, response.getBody().length);
     }
 
     @Test
     void registerTest() {
         HttpHeaders headers = new HttpHeaders();
-
         User newUser = new User();
         user.setUsername("testUser");
         user.setDisplayName("Test User");
