@@ -164,7 +164,7 @@ Records: 0  Duplicates: 0  Warnings: 0
 |     1505 | 0.00356350 | EXPLAIN WITH liked_avg AS (
 	SELECT AVG(danceability) AS averageVal FROM Tracks
 	WHERE track_id IN 
-		(SELECT track_id FROM LikedPlaylist 
+		(SELECT track_id FROM LikedTracks 
 		WHERE liked_username = "testuser"))
 SELECT * FROM Tracks, liked_avg 
 WHERE ABS((Tracks.danceability - liked_avg.averageVal)) <= 0.05
@@ -174,7 +174,7 @@ ON Tracks(danceability)                                                         
 |     1507 | 0.00346575 | EXPLAIN WITH liked_avg AS (
 	SELECT AVG(danceability) AS averageVal FROM Tracks
 	WHERE track_id IN 
-		(SELECT track_id FROM LikedPlaylist 
+		(SELECT track_id FROM LikedTracks 
 		WHERE liked_username = "testuser"))
 SELECT * FROM Tracks, liked_avg 
 WHERE ABS((Tracks.danceability - liked_avg.averageVal)) <= 0.05
