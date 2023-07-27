@@ -11,7 +11,7 @@ import Recommendation from "./pages/Recommendation";
 
 export default function App() {
   return (
-    <div>
+    <div className="bg-slate-600 h-screen">
       <BrowserRouter>
         <nav className="border-gray-200 dark:bg-gray-900">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
