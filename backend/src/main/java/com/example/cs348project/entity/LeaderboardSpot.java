@@ -1,6 +1,5 @@
 package com.example.cs348project.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,12 +23,6 @@ public class LeaderboardSpot {
     @Id
     @Column(name = "position")
     private Integer position;
-
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "owner_username", referencedColumnName = "username", insertable = false)})
-    private Playlist playlist;
 
     public LeaderboardSpot(String ownerUsername, Integer likes, Integer position) {
         this.ownerUsername = ownerUsername;
