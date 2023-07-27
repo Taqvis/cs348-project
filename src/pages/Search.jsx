@@ -35,7 +35,7 @@ function Search(props) {
 
   };
   return (
-    <div className="bg-slate-600 h-screen px-10 py-10 w-full">
+    <div className="bg-slate-600 min:h-screen px-10 py-10 w-full">
       <form className="flex justify-center" onSubmit={handleSubmit}>
         <div className="w-1/2">
           <div className="flex space-x-4">
@@ -58,7 +58,7 @@ function Search(props) {
           </div>
         </div>
       </form>
-      <div className="flex justify-center flex-col">
+      <div className="flex justify-center flex-col bg-slate-600">
         {displayedSongs ? (
           <div className="justify-center space-y-2">
             {displayedSongs ? (

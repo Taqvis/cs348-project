@@ -26,7 +26,7 @@ function Recommendation(props) {
 
   };
   return (
-    <div className="bg-slate-600 h-screen px-10 py-10 w-full">
+    <div className="bg-slate-600 min:h-screen px-10 py-10 w-full">
       <div className="flex justify-center flex-col">
         {displayedSongs ? (
           <div className="justify-center space-y-2">
