@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 function Recommendation(props) {
   const { username, password } = props;
-  const [displayedSongs, setDisplayedSongs] = useState(null);
+  const [displayedSongs, setDisplayedSongs] = useState([]);
   const [displayedPlaylists, setDisplayedPlaylists] = useState(null);
   const [recommendationType, setRecommendationType] = useState("danceability");
 
@@ -27,7 +27,7 @@ function Recommendation(props) {
     
   };
   return (
-    <div className="bg-slate-600 h-screen px-10 py-10 w-full">
+    <div className="bg-slate-600 min:h-screen px-10 py-10 w-full">
       <div className="flex justify-center flex-row">
         <div className="flex text-black text-lg m-3 p-3 bg-slate-500 rounded-lg" onClick={() => setRecommendationType("danceability")}>
           Danceability
@@ -43,7 +43,7 @@ function Recommendation(props) {
       Here are your {recommendationType} recommendations:
       </h1>
       <div className="flex justify-center flex-col">
-        {displayedSongs ? (
+        {displayedSongs.length ? (
           <div className="justify-center space-y-2">
             {displayedSongs ? (
               displayedSongs.map((song) => {
